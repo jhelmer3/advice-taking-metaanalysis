@@ -1,0 +1,103 @@
+---
+title: "Tri-Hurdle Metaanalysis Model"
+subtitle: "Analysis Report"
+date: last-modified
+toc: true
+format: 
+  html:
+    self-contained: true
+    grid: 
+      margin-width: 350px
+      gutter-width: 1em
+author: Jessica Helmer
+fig-dpi: 600
+knitr:
+    opts_chunk: 
+      dev: "ragg_png"
+---
+
+## Overview
+
+```{r setup}
+#| include: false
+library(tidyverse)
+
+knitr::read_chunk(
+  lines = readLines(here::here("Models", "trihurdle-metaanalysis_model-code.stan")),
+  label = "stan_code")
+
+knitr::read_chunk(
+  lines = readLines(here::here("Scripts", "trihurdle-metaanalysis_1_pre-model.R")),
+  label = "r_pre-model")
+
+knitr::read_chunk(
+  lines = readLines(here::here("Scripts", "trihurdle-metaanalysis_2_post-model.R")),
+  label = "r_post-model")
+```
+
+After fitting the tri-hurdle model on the Onkal (2009) Study 1 data, we combined it with the metaanalytic approach. 
+
+## Code
+
+```{r stan_code, eval = F}
+#| code-summary: "Stan Model Code"
+#| code-fold: true
+```
+
+```{r r_pre-model, eval = F}
+#| code-summary: "R Code Model Setup"
+#| code-fold: true
+```
+
+```{r r_post-model, eval = F}
+#| code-summary: "R Code Model Results"
+#| code-fold: true
+```
+
+
+## Results
+
+Displayed below is a plot of the distribution of WOA values as per the **data** and as per the [model]{style="color:#5179A9"} predictions. The model does seem to be overestimating the WOA = .5 values a bit.
+
+```{r, echo = F}
+#| fig-width: 4
+#| fig-height: 2.5
+#| fig-align: center
+#| out-width: 66.66%
+
+knitr::include_graphics(here::here("Figures", "Tri-Hurdle Metaanalysis", "ppc_plt.png"))
+```
+
+```{r, echo = F, message = F}
+#| fig-width: 4
+#| fig-height: 16
+#| out-width: 100%
+#| column: margin
+
+cowplot::plot_grid(plotlist = 
+                     list(readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis", "p_DAC_forestplt_legend.rds")),
+                          readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis", "p_DAC_forestplt.rds")) +
+                            scale_x_continuous(NULL, breaks = c(0, .25, .5, .75, 1),
+                                               labels = scales::percent_format(),
+                                               position = "top",
+                                               expand = c(0, 0)) +
+                            coord_cartesian(xlim = c(0, 1), clip = "off") +
+                            theme(plot.margin = margin(10, 10, 0, 1),
+                                  axis.text.y = element_text(size = 10.5),
+                                  axis.text.x = element_text(size = 10))),
+                   ncol = 1, rel_heights = c(0.042, 1))
+
+```
+
+Below we can see the distribution of the study-level intercepts for the probability of responses falling into the DAMC categories. To the right we can see those box plots representing the distribution of those sampled intercepts for each study.
+
+```{r, echo = F}
+#| fig-width: 4
+#| fig-height: 2.5
+#| fig-align: center
+#| out-width: 66.66%
+
+readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis", "studylvl_plt.rds"))
+```
+
+

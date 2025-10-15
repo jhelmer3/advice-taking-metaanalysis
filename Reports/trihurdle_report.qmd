@@ -1,0 +1,113 @@
+---
+title: "Tri-Hurdle Model"
+subtitle: "Analysis Report"
+date: last-modified
+toc: true
+format: 
+  html:
+    self-contained: true
+    grid: 
+      margin-width: 350px
+      gutter-width: 1em
+author: Jessica Helmer
+fig-dpi: 600
+knitr:
+    opts_chunk: 
+      dev: "ragg_png"
+---
+
+## Overview
+
+```{r setup}
+#| include: false
+library(tidyverse)
+
+knitr::read_chunk(
+  lines = readLines(here::here("Models", "trihurdle_model-code.stan")),
+  label = "stan_code")
+
+knitr::read_chunk(
+  lines = readLines(here::here("Scripts", "trihurdle_1_pre-model.R")),
+  label = "r_pre-model")
+
+knitr::read_chunk(
+  lines = readLines(here::here("Scripts", "trihurdle_2_post-model.R")),
+  label = "r_post-model")
+```
+
+Because many studies had a high incidence rate of WOA values of exactly 0.5, we explored adding a third hurdle to represent perfect averaging. 
+
+::: math
+\begin{array}{l}
+  \begin{array}{rlll}
+    WOA &
+    \begin{cases}
+      = 0 & \text{with } P_{decline} & \eta_1 \\
+      = 1 & \text{with } P_{adopt} & \eta_2 \\
+      = .5 & \text{with } P_{midpoint} & \eta_3 \\
+      = c & \text{with } P_{compromise} & 1 - \eta_1 - \eta_2 - \eta_3
+    \end{cases}
+  \end{array} \\[1em]
+
+  \begin{array}{l}
+    c \sim Beta(\mu\phi, (1-\mu)\phi)
+  \end{array} \\[1em]
+
+  \begin{array}{ll}
+    \begin{array}{l}
+      \eta_1 = \frac{e^{\beta_1x}}{1 + e^{\beta_1x} + e^{\beta_2x} + e^{\beta_3x}} \\
+      \eta_2 = \frac{e^{\beta_2x}}{1 + e^{\beta_1x} + e^{\beta_2x} + e^{\beta_3x}} \\
+      \eta_3 = \frac{e^{\beta_3x}}{1 + e^{\beta_1x} + e^{\beta_2x} + e^{\beta_3x}}
+    \end{array} &
+    \begin{array}{l}
+      \mu = \frac{1}{1 - e^{\beta_4x}} \\
+      \phi = e^{\beta_5x} 
+    \end{array}
+  \end{array}
+\end{array}
+:::
+
+We estimated this first in a single-study context, on just the study with the most 0.5s (Onkal, 2009, S1).
+
+## Code
+
+```{r stan_code, eval = F}
+#| code-summary: "Stan Model Code"
+#| code-fold: true
+```
+
+```{r r_pre-model, eval = F}
+#| code-summary: "R Code Model Setup"
+#| code-fold: true
+```
+
+```{r r_post-model, eval = F}
+#| code-summary: "R Code Model Results"
+#| code-fold: true
+```
+
+## Results
+
+Displayed below is a plot of the distribution of WOA values as per the **data** and as per the <span style="color:#5179A9">model</span> predictions. We can see the large proportion of WOA values near zero and one, and we can see the model spike at 0.5 matches that of the data more closely than it did in the model without.
+
+```{r, echo = F}
+#| fig-width: 4
+#| fig-height: 2.5
+#| fig-align: center
+#| out-width: 66.66%
+
+readRDS(here::here("Figures", "Tri-Hurdle", "ppc_plt.rds"))
+```
+
+Below we can see the distribution of the study-level intercepts for the probability of responses falling into the DACM categories. 
+
+```{r, echo = F}
+#| fig-width: 4
+#| fig-height: 2.5
+#| fig-align: center
+#| out-width: 66.66%
+
+readRDS(here::here("Figures", "Tri-Hurdle", "personlvl_plt.rds"))
+```
+
+
