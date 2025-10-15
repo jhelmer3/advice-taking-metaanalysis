@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jessica Helmer">
-<meta name="dcterms.date" content="2025-10-08">
+<meta name="dcterms.date" content="2025-10-14">
 
 <title>Advice-Taking Metaanalysis</title>
 <style>
@@ -108,6 +108,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./Reports/trihurdle_report.html">
  <span class="dropdown-text">Tri-Hurdle Model</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./Reports/trihurdle-metaanalysis_report.html">
+ <span class="dropdown-text">Tri-Hurdle Metaanalysis Model</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -127,8 +131,6 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#metaanalysis-model" id="toc-metaanalysis-model" class="nav-link" data-scroll-target="#metaanalysis-model">Metaanalysis Model</a></li>
-  <li><a href="#tri-hurdle-model" id="toc-tri-hurdle-model" class="nav-link" data-scroll-target="#tri-hurdle-model">Tri-Hurdle Model</a></li>
   </ul>
 </nav>
     </div>
@@ -155,7 +157,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 8, 2025</p>
+      <p class="date">October 14, 2025</p>
     </div>
   </div>
   
@@ -169,18 +171,44 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>I have been working on converting the <a href="https://doi.org/10.1016/j.jmp.2022.102695">Himmelstein (2022)</a> advice-taking dual-hurdle model to better model advice-taking in a metaanalytic context.</p>
-</section>
-<section id="metaanalysis-model" class="level2">
-<h2 class="anchored" data-anchor-id="metaanalysis-model">Metaanalysis Model</h2>
+<p>This site is my log of work on converting the <a href="https://doi.org/10.1016/j.jmp.2022.102695">Himmelstein (2022)</a> advice-taking dual-hurdle model to better model advice-taking in a metaanalytic context.</p>
+<div class="columns v-center-container">
+<div class="column" style="width:70%;">
+<section id="metaanalysis-model" class="level3">
+<h3 class="anchored" data-anchor-id="metaanalysis-model">Metaanalysis Model</h3>
 <p>First, I converted the <a href="https://doi.org/10.1016/j.jmp.2022.102695">Himmelstein (2022)</a> model from a two-level cross-classified model, with responses cross-classified within judges and items, into a three-level cross-classified model, with responses cross-classified within judges and items and then nested within studies.</p>
-<p><a href="./Reports/metaanalysis_report.html">Report here</a>.</p>
 <p>One key initial finding from this metaanalysis is that some studies have a high proportion of Weight of Advice (WOA) values of exactly 0.5. To address this, we explored adding a third hurdle to the model.</p>
 </section>
-<section id="tri-hurdle-model" class="level2">
-<h2 class="anchored" data-anchor-id="tri-hurdle-model">Tri-Hurdle Model</h2>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column l-center-container" style="width:25%;">
+<p><a href="./Reports/metaanalysis_report.html" class="btn btn-outline-primary" role="button">Metaanalysis</a></p>
+</div>
+</div>
+<div class="columns v-center-container">
+<div class="column" style="width:70%;">
+<section id="tri-hurdle-model" class="level3">
+<h3 class="anchored" data-anchor-id="tri-hurdle-model">Tri-Hurdle Model</h3>
 <p>With just one study that was high on 0.5s, we modified the original model to include an additional Midpoint hurdle.</p>
-<p><a href="./Reports/trihurdle_report.html">Report here</a>.</p>
+</section>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column l-center-container" style="width:25%;">
+<p><a href="./Reports/trihurdle_report.html" class="btn btn-outline-primary" role="button">Tri-Hurdle</a></p>
+</div>
+</div>
+<div class="columns v-center-container">
+<div class="column" style="width:70%;">
+<section id="tri-hurdle-metaanalysis-model" class="level3">
+<h3 class="anchored" data-anchor-id="tri-hurdle-metaanalysis-model">Tri-Hurdle Metaanalysis Model</h3>
+<p>With that model successfully estimated, we then merged the tri-hurdle and metaanalytic model frameworks.</p>
+</section>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column l-center-container" style="width:25%;">
+<p><a href="./Reports/trihurdle-metaanalysis_report.html" class="btn btn-outline-primary" role="button">Tri-Hurdle Metaanalysis</a></p>
+</div>
+</div>
 
 
 </section>

@@ -1,0 +1,8 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+/.quarto/
+Models/
+Figures/Tri-Hurdle Metaanalysis/ppc_plt.rds
