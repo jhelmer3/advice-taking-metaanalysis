@@ -5,4 +5,4 @@
 
 /.quarto/
 Models/
-Figures/Tri-Hurdle Metaanalysis/ppc_plt.rds
+Figures/**/*.rds

@@ -14,7 +14,10 @@ website:
         menu:
           - Reports/metaanalysis_report.qmd
           - Reports/trihurdle_report.qmd 
-          - Reports/trihurdle-metaanalysis_report.qmd 
+          - Reports/trihurdle-metaanalysis_report.qmd
+    tools:
+      - icon: github
+        href: https://github.com/jhelmer3/advice-taking-metaanalysis
   page-footer:
     right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
 
