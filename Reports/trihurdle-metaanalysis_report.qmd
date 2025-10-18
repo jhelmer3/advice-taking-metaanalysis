@@ -5,6 +5,7 @@ date: last-modified
 toc: true
 format: 
   html:
+    code-fold: true
     self-contained: true
     grid: 
       margin-width: 350px
@@ -14,6 +15,7 @@ fig-dpi: 600
 knitr:
     opts_chunk: 
       dev: "ragg_png"
+cache: true
 ---
 
 ## Overview
@@ -57,7 +59,7 @@ After fitting the tri-hurdle model on the Onkal (2009) Study 1 data, we combined
 
 ## Results
 
-Displayed below is a plot of the distribution of WOA values as per the **data** and as per the [model]{style="color:#5179A9"} predictions. The model does seem to be overestimating the WOA = .5 values a bit.
+Displayed below is a plot of the distribution of WOA values as per the **data** and as per the [model]{style="color:#5179A9"} predictions. The model does seem to be overestimating the WOA = .5 values a bit. This is perhaps a prior issue.
 
 ```{r, echo = F}
 #| fig-width: 4
@@ -67,6 +69,42 @@ Displayed below is a plot of the distribution of WOA values as per the **data** 
 
 knitr::include_graphics(here::here("Figures", "Tri-Hurdle Metaanalysis", "ppc_plt.png"))
 ```
+
+### Midpoint Hurdle Prior
+
+Messing around with the prior specification for the standard deviation of the variance component of the cluster effects of the midpoint hurdle.
+
+`student_t_lpdf(sd_7 | 3, 0, 2.5) - 1 * student_t_lccdf(0 | 3, 0, 2.5)`
+
+```{r}
+#| fig-width: 4
+#| fig-height: 3
+#| layout-ncol: 4
+nu <- 3
+mu <- 0
+sigma <- 2.5
+
+expand_grid(alpha = c(1), beta = c(2.5, 2, 1.5, 1.25)) |>
+  pwalk(\(alpha, beta) {
+    (data.frame(i = seq(0, 10, length.out = 1000)) |>
+         mutate(dens_t = dt((i - mu) / sigma, df = nu) / sigma * 2,
+                dens_g = dgamma(i, shape = alpha, scale = beta)) |>
+         ggplot(aes(x = i, y = dens_t)) +
+         geom_line() +
+         geomtextpath::geom_textline(aes(y = dens_g,
+                                         label = paste0("gamma(", alpha, 
+                                                        ", ", beta, ")")),
+                                     color = "skyblue3", size = 6) +
+         coord_cartesian(xlim = c(0, 10), ylim = c(0, .5),
+                         expand = F, clip = "off") +
+         guides(y = "none") +
+         labs(y = NULL, x= NULL) +
+         theme_classic(base_size = 16)) |>
+      print()})
+```
+
+
+
 
 ```{r, echo = F, message = F}
 #| fig-width: 4
