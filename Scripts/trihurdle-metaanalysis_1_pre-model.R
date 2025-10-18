@@ -45,6 +45,7 @@ dat <- dat_full %>%
   mutate(.by = c(study, trial),
          trial = cur_group_id())
 
+# # code to make a small version of the dataset
 # dat <- dat |>
 #   filter(study %in% sample(study, 20)) %>%
 #   filter(.by = study,
