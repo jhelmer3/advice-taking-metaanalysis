@@ -57,7 +57,8 @@ dat <- dat_full %>%
 #   mutate(.by = c(study, trial),
 #          trial = cur_group_id())
 
-saveRDS(dat, here::here("..", "Data Clean", "trihurdle-metaanalysis_dat.rds"))
+# saveRDS(dat, here::here("..", "Data Clean", "trihurdle-metaanalysis_dat.rds"))
+dat <- readRDS(here::here("..", "Data Clean", "trihurdle-metaanalysis_dat-small.rds"))
 
 dat %>% summary()
 
@@ -120,7 +121,7 @@ k <- ncol(x)
 
 ## Run model
 
-helmer_stan <- stan(here::here("Models", "trihurdle-metaanalysis_model.stan"),
+helmer_stan_0 <- stan(here::here("Models", "trihurdle-metaanalysis_model-code.stan"),
                     data = list(N = nrow(dat), # number observations
                                 ncat = 4, #number of DAC categories
                                 Y1 = dat$DAC, # DAC variable

@@ -14,6 +14,7 @@ fig-dpi: 600
 knitr:
     opts_chunk: 
       dev: "ragg_png"
+cache: true
 ---
 
 ## Overview
@@ -128,3 +129,15 @@ readRDS(here::here("Figures", "Metaanalysis", "studylvl_plt.rds"))
 ```
 
 Next step is to decide how to handle these high .5 studies and to add predictors to the model! Looking forward to hearing what predictors would be best to include in this analysis. Also, if there are other ways of analyzing and presenting these results that would be helpful, please let me know!
+
+#### Predictors
+
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+#| fig-align: center
+#| out-width: 66.66%
+
+readRDS(here::here("Figures", "Metaanalysis", "predictor_plt.rds"))
+```
+

@@ -57,6 +57,9 @@ dat <- filter(dat, study == 22) %>%
 
 dat %>% summary()
 
+#saveRDS(dat, here::here("..", "Data Clean", "trihurdle_dat.rds"))
+dat <- readRDS(here::here("..", "Data Clean", "trihurdle_dat.rds"))
+
 
 ## Create trimmed version of DWOA (probably unnecessary)
 dat$woa_winsor_trim <- dat$woa_winsor
@@ -97,10 +100,10 @@ pr_v <- rep(NA, ncol(x) - 1) #no prior for the intercept?
 for (i in 1:length(pr_v)){
   sdi <- sd(x[, i + 1], na.rm = T)
   if(length(levels(factor(x[, i]))) == 2) { # if binary?
-    pr_v[i] <- 3
+    pr_v[i] <- 1
   }
   else {
-    pr_v[i] <- 3 / sdi #why
+    pr_v[i] <- 1 / sdi #why
   }
 }
 
@@ -113,12 +116,10 @@ dat$DAC <- ifelse(dat$woa_winsor == 0, 2,
 
 k <- ncol(x)
 
-saveRDS(dat, here::here("..", "Data Clean", "trihurdle_dat.rds"))
-
 
 ## Run model
 
-helmer_stan <- stan(here::here("Models", "trihurdle_model-code.stan"),
+helmer_stan <- stan(here::here("Models", "trihurdle_model-code_1.1.stan"),
                     data = list(N = nrow(dat), # number observations
                                 ncat = 4, #number of DAC categories
                                 Y1 = dat$DAC, # DAC variable
@@ -140,7 +141,7 @@ helmer_stan <- stan(here::here("Models", "trihurdle_model-code.stan"),
                                 prior_only = 0, # draw from prior only and ignore likelihood?
                                 N_test = nrow(testdat), # number of observations in test data
                                 X_test = testdat), # test data
-                    warmup = 1000, iter = 2000,
+                    warmup = 1000, iter = 3000,
                     seed = 50401, init_r = .2)
 
 saveRDS(helmer_stan, file = here::here("Models", "trihurdle_model.rds"))

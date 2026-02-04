@@ -21,7 +21,7 @@ helmer_stan <- readRDS(here::here("Models", "trihurdle_model.rds"))
 
 ## checks ----
 
-traceplot(helmer_stan)
+traceplot(helmer_stan, pars = c("Intercept_eta3", "sd_5", "sd_6", "r_5_eta3_1", "r_6_eta3_1"))
 
 list_of_draws <- rstan::extract(helmer_stan, pars = "y_rep")
 ppcplt <- ppc_dens_overlay(y = dat$woa_winsor_trim, yrep = list_of_draws$y_rep[1:50, ]) +
@@ -86,3 +86,32 @@ personlvl_plt <- ggplot(inits_dat, aes(x = Parameter, y = round(P, 2), fill = Pa
         legend.position = "bottom")
 personlvl_plt
 saveRDS(personlvl_plt, here::here("Figures", "Tri-Hurdle", "personlvl_plt.rds"))
+
+
+## messing around with those third hurdle estimates
+
+dat |> select(id) |> unique() |> nrow()
+sds <- rstan::extract(helmer_stan, c("sd_5", "sd_6"), permuted = F) 
+summary(helmer_stan, c("sd_5", "sd_6"))
+
+# prior only
+
+rstan::extract(helmer_stan, "y_rep") |>
+  as.data.frame() |> 
+  select(1:50) |>
+  pivot_longer(everything(),
+               names_to = "rep", values_to = "draw") |>
+  ggplot(aes(x = draw, group = rep)) +
+  geom_density()
+
+rstan::extract(helmer_stan, c("pc1_t", "pc2_t", "pc3_t", "pc4_t")) |>
+  as.data.frame() |>
+  pivot_longer(everything(),
+               names_to = "par", values_to = "est") |>
+  separate_wider_delim(par, ".", names = c("par", "rep")) |>
+  ggplot(aes(x = par, y = est)) +
+  geom_violin() +
+  coord_cartesian(ylim = c(0, .1))
+
+
+

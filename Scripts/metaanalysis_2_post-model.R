@@ -6,6 +6,7 @@ here::here()
 library(rstan)
 library(bayesplot)
 library(tidyverse)
+library(patchwork)
 
 options(scipen = 999)
 
@@ -132,6 +133,7 @@ playdat %>%
         legend.position = "bottom")
 
 
+
 test_rbeta_gen <- matrix(NA, ncol = 1, nrow = nrow(playdat))
 
 set.seed(203001)
@@ -163,12 +165,36 @@ test_rbeta_mean <- test_rbeta %>%
          confidence = factor(round(confidence, 2), ordered = T))
 
 
-test_rbeta %>%
+predictor_plt <- (playdat %>%
+    pivot_longer(c("pc1", "pc2", "pc3"),
+                 names_to = "choice", values_to = "prob") %>%
+    mutate(choice = factor(choice,
+                           levels = c("pc2", "pc3", "pc1")),
+           distance = factor(round(distance, 2), ordered = T),
+           confidence = factor(round(confidence, 2), ordered = T)) %>% 
+    ggplot(aes(y = prob, x = confidence, fill = distance, color = distance)) +
+    geom_violin(alpha = .8) + 
+    stat_summary(aes(x = confidence, group = distance),
+                 fun = "mean",
+                 geom = "point",
+                 position = position_dodge(0.9)) +
+    scale_x_discrete(NULL, labels = c("-0.98" = "-1 SD", "0" = "Mean", "0.98" = "+1 SD")) +
+    scale_y_continuous("P",
+                       limits = c(0, 1)) +
+    scale_fill_manual(values = c("#ffd6ed", "#df94be", "#bc5090")) +
+    scale_color_manual(values = scales::col_darker(c("#ffd6ed", "#df94be", "#bc5090"))) +
+    facet_wrap(~ choice, labeller = as_labeller(
+      c(pc1 = "Compromise", pc2 = "Decline", pc3 = "Adopt"))) +
+    theme_minimal(base_size = 12) +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid.major.x = element_blank(),
+          legend.position = "none",
+          aspect.ratio = 1)) /
+(test_rbeta %>%
   mutate(distance = factor(round(distance, 2), ordered = T),
          confidence = factor(round(confidence, 2), ordered = T)) %>% 
-  ggplot(aes(x = confidence, y = dens, fill = distance)) + 
-  geom_hline(yintercept = .5, color = "gray60") + 
-  geom_violin(width = .5, color = NA, alpha = .8,
+  ggplot(aes(x = confidence, y = dens, fill = distance, color = distance)) + 
+  geom_violin(alpha = .8,
               position = position_dodge(.9)) +  
   geom_point(data = test_rbeta_mean,
              aes(x = confidence, y = dens),
@@ -177,17 +203,23 @@ test_rbeta %>%
   stat_summary(aes(x = confidence, group = distance),
                fun = "mean",
                geom = "point",
-               color = "gray40",
                shape = 21,
                fill = "white",
+               size = 2.5,
                position = position_dodge(.9)) +
-  labs(fill = "distance", x = "confidence", y = "WOA") +
-  scale_fill_manual(values = c("#ffd6ed", "#df94be", "#bc5090")) +
-  theme_minimal() +
+  labs(fill = "Distance", x = "Confidence", y = "WOA") +
+  scale_x_discrete(labels = c("-0.98" = "-1 SD", "0" = "Mean", "0.98" = "+1 SD")) +
+  scale_fill_manual(values = c("#ffd6ed", "#df94be", "#bc5090"),
+                    labels = c("-0.02" = "-1 SD", "0.32" = "Mean", "0.66" = "+1 SD")) +
+  scale_color_manual("Distance", 
+                    values = scales::col_darker(c("#ffd6ed", "#df94be", "#bc5090")),
+                    labels = c("-0.02" = "-1 SD", "0.32" = "Mean", "0.66" = "+1 SD")) +
+  theme_minimal(base_size = 12) +
   theme(panel.grid.minor = element_blank(),
         panel.grid.major.x = element_blank(),
-        legend.position = "bottom")
+        legend.position = "bottom"))
 
+saveRDS(predictor_plt, here::here("Figures", "Metaanalysis", "predictor_plt.rds"))
 
 inits_dat <- data.frame(par = 1:nrow(data.frame(summary(helmer_stan, pars = "r_1_eta1_1")$summary)),
                         eta1 = data.frame(summary(helmer_stan, pars = "r_1_eta1_1")$summary)$mean +

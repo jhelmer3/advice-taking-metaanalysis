@@ -217,11 +217,11 @@ model {
   // target += student_t_lpdf(sd_9 | 3, 0, 2.5)
   // - 1 * student_t_lccdf(0 | 3, 0, 2.5);
   // target += std_normal_lpdf(z_9[1]);
-  target += gamma_lpdf(sd_7 | 1, 0, 1.5);
+  target += gamma_lpdf(sd_7 | 1, 1.25);
   target += std_normal_lpdf(z_7[1]);
-  target += gamma_lpdf(sd_8 | 1, 0, 1.5);
+  target += gamma_lpdf(sd_8 | 1, 1.25);
   target += std_normal_lpdf(z_8[1]);
-  target += gamma_lpdf(sd_9 | 1, 0, 1.5);
+  target += gamma_lpdf(sd_9 | 1, 1.25);
   target += std_normal_lpdf(z_9[1]);
   
   // priors including all constants
