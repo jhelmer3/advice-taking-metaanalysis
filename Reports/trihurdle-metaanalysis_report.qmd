@@ -149,12 +149,6 @@ readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "distan
 
 #### Person-Level
 
-Students declined advice less, compromised with advice less, and adopted advice more. When compromising, students tended to give more weight to the advice in their updated belief than did the non-students.
-
-Studies with almanac items were more prone to perfect averaging.
-
-Studies that had incentives showed lower rates of declining and adopting but higher rates of midpoint averaging and compromising. However, continuous compromises from these incentivized studies weighed their advice less in their updated judgement than did non-incentivized judgements.
-
 ```{r}
 #| eval: false
 #| message: false
@@ -180,6 +174,12 @@ readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "age-by
 
 #### Study-Level
 
+Students declined advice less, compromised with advice less, and adopted advice more. When compromising, students tended to give more weight to the advice in their updated belief than did the non-students.
+
+Studies with almanac items were more prone to perfect averaging.
+
+Studies that had incentives showed lower rates of declining and adopting but higher rates of midpoint averaging and compromising. However, continuous compromises from these incentivized studies weighed their advice less in their updated judgement than did non-incentivized judgements.
+
 ```{r}
 #| eval: false
 # gets out names of predictors. 
@@ -204,6 +204,7 @@ study.level_predictors |>
             theme(geom = element_geom(ink = "#597993", paper = "#a2b9cd"))) |> print())
 ```
 
+None of the 11 studies in the small version of the dataset had expert advisors, so please discount that plot! 
 
 ### Midpoint Hurdle Prior
 
