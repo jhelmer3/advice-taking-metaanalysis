@@ -31,21 +31,25 @@ library(patchwork)
 #### Reading
 ```{r}
 #| eval: false
+#| code-fold: show
 playdat_full <- readRDS(here::here("..", "Data Clean", "trihurdle-metaanalysis_more-predictors_playdat-full.rds"))
 ```
 
 ```{r}
+#| code-fold: show
 condition_names <- readRDS(here::here("..", "Data Clean", "condition-names_more-predictors.rds"))
 ```
 
 
 #### Functions
 ```{r}
+#| code-fold: show
 source(here::here("Scripts", "predictor-automation.R"))
 ```
 
 #### Cleaning
 ```{r}
+#| code-fold: show
 study.level_predictors <- str_split(condition_names[1], regex("\\.[lmh]{1}_")) |> 
   map(~ str_split_i(.x, "\\.", 1)) |>
   pluck(1) %>%
@@ -57,7 +61,6 @@ study.level_predictors <- str_split(condition_names[1], regex("\\.[lmh]{1}_")) |
 ## Overview
 
 ```{r setup}
-#| include: false
 knitr::read_chunk(
   lines = readLines(here::here("Models", "trihurdle-metaanalysis_model-code.stan")),
   label = "stan_code")
@@ -93,7 +96,7 @@ After fitting the tri-hurdle model on the Onkal (2009) Study 1 data, we combined
 
 ## Results
 
-Displayed below is a plot of the distribution of WOA values as per the **data** and as per the [model]{style="color:#5179A9"} predictions. The model does seem to be overestimating the WOA = .5 values a bit. This is perhaps a prior issue.
+Displayed below is a plot of the distribution of WOA values as per the **data** and as per the [model]{style="color:#5179A9"} predictions. The model does seem to be overestimating the WOA = .5 values a bit. This is perhaps a prior issue (will see if we can fix).
 
 ```{r, echo = F}
 #| fig-width: 4
@@ -104,7 +107,7 @@ Displayed below is a plot of the distribution of WOA values as per the **data** 
 knitr::include_graphics(here::here("Figures", "Tri-Hurdle Metaanalysis", "ppc_plt.png"))
 ```
 
-Below is the same plot but broken up by study.
+Below is the same plot but broken up by study. The model does not seem to be overestimating the midpoint hurdle for every study, but it does for some. The studies with the most empirical responses around 0.5 seem like they might be the ones with the most overestimation.
 
 ```{r}
 #| fig-width: 12
@@ -117,7 +120,14 @@ readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis", "ppc_plt_g.rds"))
 
 ### Incorporating Predictors
 
-All these results are currently from a baby version of the data. Note: the "SD" labels are just placeholders for the binary predictors; -1 SD is 0 and +1 SD is 1 for those.
+Next, here are results from adding the predictors already in the dataset to the model! Here are the included predictors we have in this version:
+
+- **Trial-Level**: Distance, Confidence, Distance $\times$ Confidence
+- **Item-Level**: None
+- **Person-Level**: Age, Gender, Confidence, Age $\times$ Gender
+- **Study-Level**: Random Advice, Student Judge, Almanac Item, Future Item, Expert Advisor, Incentive
+
+All these results are currently from a small version of the data (11 studies) for some preliminary results. For each predictor, we have a plot with levels of the predictor on the x-axis or in color. For the upper graphs on the plot, we have violin plots of the probabilities of the different discrete choices, and for the lower graph, we have the distribution of WOA values. The filled-in circle point is the mean WOA including the discrete choices, and the open circle point is the mean WOA not including decline or adopt (i.e., just compromise and midpoint).
 
 #### Trial-Level
 
@@ -132,14 +142,29 @@ saveRDS(woa_predictor_plt(playdat_full, c("distance", "confidence")),
 #| fig-height: 5.5
 #| fig-align: center
 #| out-width: 66.66%
+#| fig-cap: "With increased distance, the probability of declining or adopting decreases, and the probability of adopting increases. With increased confidence, the probability of declining increases, and the probability of compromising decreases."
+#| cap-location: margin
 readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "distance-by-confidence_plt.rds"))
 ```
 
 #### Person-Level
 
+Students declined advice less, compromised with advice less, and adopted advice more. When compromising, students tended to give more weight to the advice in their updated belief than did the non-students.
+
+Studies with almanac items were more prone to perfect averaging.
+
+Studies that had incentives showed lower rates of declining and adopting but higher rates of midpoint averaging and compromising. However, continuous compromises from these incentivized studies weighed their advice less in their updated judgement than did non-incentivized judgements.
+
 ```{r}
 #| eval: false
-saveRDS(woa_predictor_plt(playdat_full, c("age", "female")),
+#| message: false
+saveRDS((woa_predictor_plt(playdat_full, c("age", "female"))) &
+          scale_fill_manual("Gender",
+                            values = c("-1 SD" = "#597993", "Mean" = "blue", "+1 SD" = "#e38693"),
+                            labels = c("-1 SD" = "Male", "Mean" = "?", "+1 SD" = "Female")) &
+          scale_color_manual("Gender",
+                            values = c("-1 SD" = "#465F73", "Mean" = "blue", "+1 SD" = "#D95D6E"),
+                            labels = c("-1 SD" = "Male", "Mean" = "?", "+1 SD" = "Female")),
         here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "age-by-female_plt.rds"))
 ```
 
@@ -148,6 +173,8 @@ saveRDS(woa_predictor_plt(playdat_full, c("age", "female")),
 #| fig-height: 5.5
 #| fig-align: center
 #| out-width: 66.66%
+#| fig-cap: "Male participants tended to decline advice more, and this increased with age. Female participants were more likely to compromise, which increased with age, and male participants were less likely to compromise with age. "
+#| cap-location: margin
 readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "age-by-female_plt.rds"))
 ```
 
@@ -170,61 +197,12 @@ study.level_predictors |>
 #| out-width: 66.66%
 #| layout-ncol: 2
 #| layout-nrow: 6
+#| message: false
 study.level_predictors |>
-  walk(~ readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors",
-                           paste0(.x, "_plt.rds"))) |> print())
-
+  walk(~ (readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors",
+                           paste0(.x, "_plt.rds"))) & 
+            theme(geom = element_geom(ink = "#597993", paper = "#a2b9cd"))) |> print())
 ```
-
-
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- saveRDS(woa_one_predictor_plt(playdat_full, c("almanac")), -->
-<!--         here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "almanac_plt.rds")) -->
-
-<!-- saveRDS(woa_one_predictor_plt(playdat_full, c("future")), -->
-<!--         here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "future_plt.rds")) -->
-<!-- ``` -->
-
-<!-- ```{r} -->
-<!-- #| fig-width: 6 -->
-<!-- #| fig-height: 5.5 -->
-<!-- #| fig-align: center -->
-<!-- #| layout-ncol: 2 -->
-<!-- readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "almanac_plt.rds")) -->
-
-<!-- readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "future_plt.rds")) -->
-<!-- ``` -->
-
-
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- saveRDS(woa_one_predictor_plt(playdat_full, c("expert_advisor")), -->
-<!--         here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "expert_advisor_plt.rds")) -->
-<!-- ``` -->
-
-<!-- ```{r} -->
-<!-- #| fig-width: 6 -->
-<!-- #| fig-height: 5.5 -->
-<!-- #| fig-align: center -->
-<!-- #| out-width: 66.66% -->
-<!-- readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "expert_advisor_plt.rds")) -->
-<!-- ``` -->
-
-
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- saveRDS(woa_one_predictor_plt(playdat_full, c("incentive")), -->
-<!--         here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "incentive_plt.rds")) -->
-<!-- ``` -->
-
-<!-- ```{r} -->
-<!-- #| fig-width: 6 -->
-<!-- #| fig-height: 5.5 -->
-<!-- #| fig-align: center -->
-<!-- #| out-width: 66.66% -->
-<!-- readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "incentive_plt.rds")) -->
-<!-- ``` -->
 
 
 ### Midpoint Hurdle Prior

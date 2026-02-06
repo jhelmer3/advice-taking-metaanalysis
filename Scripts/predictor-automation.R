@@ -1,4 +1,6 @@
-woa_predictor_plt <- function(data, x) {
+predictor_labels <- list()
+
+woa_predictor_plt <- function(data, x, colors = c("#b5cce0", "#6589a5", "#004c6d")) {
   
   condition_search_str <- str_split(condition_names[1], regex("\\.[lmh]{1}_")) |> 
     map(\(pred) 
@@ -46,8 +48,8 @@ woa_predictor_plt <- function(data, x) {
       scale_x_discrete(NULL) +
       scale_y_continuous("P",
                          limits = c(0, 1)) +
-      scale_fill_manual(values = c("#ffd6ed", "#df94be", "#bc5090")) +
-      scale_color_manual(values = scales::col_darker(c("#ffd6ed", "#df94be", "#bc5090"))) +
+      scale_fill_manual(values = colors) +
+      scale_color_manual(values = scales::col_darker(colors)) +
       facet_wrap(~ choice, labeller = as_labeller(
         c(pc1 = "Compromise", pc2 = "Decline", pc3 = "Adopt", pc4 = "Midpoint")),
         nrow = 1) +
@@ -76,9 +78,9 @@ woa_predictor_plt <- function(data, x) {
                       size = 2.5,
                       position = position_dodge(.9)) +
          labs(fill = str_to_title(x[2]), x = str_to_title(x[1]), y = "WOA") +
-         scale_fill_manual(values = c("#ffd6ed", "#df94be", "#bc5090")) +
+         scale_fill_manual(values = colors) +
          scale_color_manual(str_to_title(x[2]), 
-                            values = scales::col_darker(c("#ffd6ed", "#df94be", "#bc5090"))) +
+                            values = scales::col_darker(colors)) +
          theme_minimal(base_size = 12) +
          theme(panel.grid.minor = element_blank(),
                panel.grid.major.x = element_blank(),
@@ -160,7 +162,9 @@ woa_one_predictor_plt <- function(data, x) {
                       fill = "white",
                       size = 2.5,
                       position = position_dodge(.9)) +
-         labs(x = str_to_title(x[1]), y = "WOA") +
+         scale_x_discrete(x |> gsub("_", " ", x =_) |> str_to_title(),
+                          labels = c("-1 SD" = "No", "Mean" = "?", "+1 SD" = "Yes")) +
+         labs(y = "WOA") +
          # scale_fill_manual(values = c("#ffd6ed", "#df94be", "#bc5090")) +
          # scale_color_manual(str_to_title(x[1]), 
          #                    values = scales::col_darker(c("#ffd6ed", "#df94be", "#bc5090"))) +
