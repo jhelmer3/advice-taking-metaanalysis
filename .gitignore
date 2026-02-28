@@ -6,3 +6,5 @@
 /.quarto/
 Models/*.rds
 Figures/**/*.rds
+
+**/*.quarto_ipynb

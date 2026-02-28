@@ -35,32 +35,40 @@ studynames <- dat_full %>%
 dat <- dat_full %>%
   # removing gender because all rows that have a value for `female` also have a value for `gender`
   select(study, id, trial, firstestimate, advice, woa_winsor, zconfidence, female, age,
-         random_advice, student_judge, almanac, future, expert_advisor,
+         student_judge, almanac, future, expert_advisor,
          incentive) |>
   mutate(distance = abs(firstestimate - advice) / firstestimate,
          .keep = "unused") %>%
   filter(!is.na(woa_winsor) & !is.na(zconfidence) & !is.na(age) & !is.na(female) & distance < 1) %>%
+  filter(age > 18) |>
   mutate(.by = study,
          study = cur_group_id()) %>%
   mutate(.by = c(study, id),
          id = cur_group_id()) %>%
   mutate(.by = c(study, trial),
          trial = cur_group_id())
+
+dat |>
+  gtsummary::tbl_summary(statistic = list(gtsummary::all_continuous() ~ "mean = {mean}, SD = {sd}, [{min}, {max}]",
+                                          gtsummary::all_categorical() ~ "n = {n} ({p}%)")) |>
+  gtsummary::as_gt() |>
+  gt::tab_style(style = gt::cell_text(align = "left"),
+                locations = gt::cells_body())
 
 # code to make a small version of the dataset
-dat <- dat |>
-  filter(study %in% sample(study, 20)) %>%
-  filter(.by = study,
-         id %in% sample(id, 10)) %>%
-  mutate(.by = study,
-         study = cur_group_id()) %>%
-  mutate(.by = c(study, id),
-         id = cur_group_id()) %>%
-  mutate(.by = c(study, trial),
-         trial = cur_group_id())
-
-#saveRDS(dat, here::here("..", "Data Clean", "trihurdle-metaanalysis-more-predictors_dat-small.rds"))
-dat <- readRDS(here::here("..", "Data Clean", "trihurdle-metaanalysis-more-predictors_dat-small.rds"))
+# dat <- dat |>
+#   filter(study %in% sample(study, 20)) %>%
+#   filter(.by = study,
+#          id %in% sample(id, 10)) %>%
+#   mutate(.by = study,
+#          study = cur_group_id()) %>%
+#   mutate(.by = c(study, id),
+#          id = cur_group_id()) %>%
+#   mutate(.by = c(study, trial),
+#          trial = cur_group_id())
+# 
+saveRDS(dat, here::here("..", "Data Clean", "trihurdle-metaanalysis-more-predictors_dat.rds"))
+# dat <- readRDS(here::here("..", "Data Clean", "trihurdle-metaanalysis-more-predictors_dat-small.rds"))
 
 dat %>% summary()
 
@@ -83,7 +91,6 @@ x <- dat %>%
          female = female,
          age_female = age * female,
          # study level
-         random_advice = random_advice,
          student_judge = student_judge, 
          almanac = almanac,
          future = future, 
@@ -93,8 +100,7 @@ x <- dat %>%
          intercept, 
          distance, confidence, distance_confidence,
          age, female, age_female, 
-         random_advice, student_judge,
-         almanac, future, expert_advisor, incentive)
+         student_judge, almanac, future, expert_advisor, incentive)
 
 
 ## Create test/toy data
@@ -121,16 +127,15 @@ testdat <- rbind(
   select(-which) |>
   expand(distance, confidence,
          age, female = 0:1, 
-         random_advice = 0:1, student_judge = 0:1,
+         student_judge = 0:1,
          almanac = 0:1, future = 0:1, incentive = 0:1, expert_advisor = 0:1) |>
   mutate(distance_by_confidence = distance * confidence,
          age_by_female = age * female) |>
   select(distance, confidence, distance_by_confidence,
          age, female, age_by_female, 
-         random_advice, student_judge,
-         almanac, future, expert_advisor, incentive)
+         student_judge, almanac, future, expert_advisor, incentive)
 
-3*3*3*2*2*2*2*2*2*2
+3*3*3*2*2*2*2*2*2
 
 conditions <- testdat |>
   select(!matches("_by_")) |>

@@ -1,4 +1,4 @@
-predictor_labels <- list()
+#predictor_labels <- list()
 
 woa_predictor_plt <- function(data, x, colors = c("#b5cce0", "#6589a5", "#004c6d")) {
   
