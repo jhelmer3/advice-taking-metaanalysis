@@ -70,6 +70,118 @@
     "text": "This site is my log of work on converting the Himmelstein (2022) advice-taking dual-hurdle model to better model advice-taking in a metaanalytic context.\n\n\n\n\nFirst, I converted the Himmelstein (2022) model from a two-level cross-classified model, with responses cross-classified within judges and items, into a three-level cross-classified model, with responses cross-classified within judges and items and then nested within studies.\nOne key initial finding from this metaanalysis is that some studies have a high proportion of Weight of Advice (WOA) values of exactly 0.5. To address this, we explored adding a third hurdle to the model.\n\n\n\n\nMetaanalysis\n\n\n\n\n\n\nWith just one study that was high on 0.5s, we modified the original model to include an additional Midpoint hurdle.\n\n\n\n\nTri-Hurdle\n\n\n\n\n\n\nWith that model successfully estimated, we then merged the tri-hurdle and metaanalytic model frameworks.\n\n\n\n\nTri-Hurdle Metaanalysis"
   },
   {
+    "objectID": "Presentations/TEAP_2026.html#advice-taking",
+    "href": "Presentations/TEAP_2026.html#advice-taking",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "Advice-Taking",
+    "text": "Advice-Taking\nStudies on advice taking often use a Judge Advisor System setup\n\n○ Judge makes initial judgement\n\n\n○ Judge receives advice\n\n\n○ Judge makes final judgement\n\nOutcome metric commonly “Weight of Advice” (WOA)\n\n\n\n\n\\[ WOA = \\frac{\\text{initial} - \\text{final}}{\\text{initial} - \\text{advice}} \\]\n\n\n\n\n\n\n  \n  \n    \\(WOA = 0\\)\nDecline\n    \\(WOA = 1\\)\nAdopt\n    \\(0 &lt; WOA &lt; 1\\)\nCompromise"
+  },
+  {
+    "objectID": "Presentations/TEAP_2026.html#weight-of-advice",
+    "href": "Presentations/TEAP_2026.html#weight-of-advice",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "Weight of Advice",
+    "text": "Weight of Advice\nWOA continuous metric, but often empirically see concentrations of values at 0 and 1\n\nTypically are modeled with standard linear regression procedures\n\n○ Assume normally distributed residuals!\n\n\n(Himmelstein, 2023)"
+  },
+  {
+    "objectID": "Presentations/TEAP_2026.html#dual-hurdle-model",
+    "href": "Presentations/TEAP_2026.html#dual-hurdle-model",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "Dual-Hurdle Model",
+    "text": "Dual-Hurdle Model\nSeparates outcome into two phases:\n\n\nDiscrete\n\nDecline, adopt, or compromise?\nCategorical logit: estimates probability of each choice\n\n\n\n\n\n\n\n\n\n\n\nContinuous\n\nIf compromise, how much?\nBeta distribution: estimates continuous WOA between 0 and 1\n\n\n\n\n\n\n\n\n\n\n\n\n(Himmelstein, 2023)"
+  },
+  {
+    "objectID": "Presentations/TEAP_2026.html#dual-hurdle-model-1",
+    "href": "Presentations/TEAP_2026.html#dual-hurdle-model-1",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "Dual-Hurdle Model",
+    "text": "Dual-Hurdle Model\n\n\nMakes WOA distributions like…\n\n\n\n\n\n\n\n\n\n\nCan examine effects of predictors for both the categorical and continuous pieces\nCaptures variation at the item- and person-level\nPresent study: extend dual-hurdle model to meta-analytic context\n\n○ Account for study-level variation\n\n\n\n(Himmelstein, 2023)"
+  },
+  {
+    "objectID": "Presentations/TEAP_2026.html#present-study",
+    "href": "Presentations/TEAP_2026.html#present-study",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "Present Study",
+    "text": "Present Study\nUsed data collected for an advice-taking metaanalysis on gender effects (Santi et al) (lol)\n\n○ Full dataset included 94 studies, 308,230 observations.\n\nRemoved cases that had missing data for WOA or any of the predictors\n\n○ Remaining data had 32 studies, 107,229.\n\n\n\n\n\n\n\n\n\n\n  \n    \n      Predictors\n    \n    \n    \n      Trial-Level\n      Person-Level\n      Study-Level\n    \n  \n  \n    ○ Advice Distance○ Confidence\n○ Age○ Gender\n○ Student Population○ Almanac Item○ Future Item○ Expert Advisor○ Incentive\n  \n  \n\n\n\n\n\n\n(Santi et al, lol)"
+  },
+  {
+    "objectID": "Presentations/TEAP_2026.html#unconditional-model",
+    "href": "Presentations/TEAP_2026.html#unconditional-model",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "Unconditional Model",
+    "text": "Unconditional Model\nDistribution of WOA values as per the data and the model predictions"
+  },
+  {
+    "objectID": "Presentations/TEAP_2026.html#dual-hurdle-model-2",
+    "href": "Presentations/TEAP_2026.html#dual-hurdle-model-2",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "Dual-Hurdle Model",
+    "text": "Dual-Hurdle Model\nDistribution of WOA values as per the data and the model predictions"
+  },
+  {
+    "objectID": "Presentations/TEAP_2026.html#tri-hurdle-model",
+    "href": "Presentations/TEAP_2026.html#tri-hurdle-model",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "Tri-Hurdle Model",
+    "text": "Tri-Hurdle Model\nAdded a categorical choice: Decline, Adopt, Midpoint, Compromise"
+  },
+  {
+    "objectID": "Presentations/TEAP_2026.html#tri-hurdle-model-1",
+    "href": "Presentations/TEAP_2026.html#tri-hurdle-model-1",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "Tri-Hurdle Model",
+    "text": "Tri-Hurdle Model"
+  },
+  {
+    "objectID": "Presentations/TEAP_2026.html#decline-adopt-midpoint-compromise",
+    "href": "Presentations/TEAP_2026.html#decline-adopt-midpoint-compromise",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "Decline, Adopt, Midpoint, Compromise",
+    "text": "Decline, Adopt, Midpoint, Compromise"
+  },
+  {
+    "objectID": "Presentations/TEAP_2026.html#distance-and-confidence",
+    "href": "Presentations/TEAP_2026.html#distance-and-confidence",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "Distance and Confidence",
+    "text": "Distance and Confidence"
+  },
+  {
+    "objectID": "Presentations/TEAP_2026.html#age-and-gender",
+    "href": "Presentations/TEAP_2026.html#age-and-gender",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "Age and Gender",
+    "text": "Age and Gender"
+  },
+  {
+    "objectID": "Presentations/TEAP_2026.html#study-level-predictors",
+    "href": "Presentations/TEAP_2026.html#study-level-predictors",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "Study-Level Predictors",
+    "text": "Study-Level Predictors"
+  },
+  {
+    "objectID": "Presentations/TEAP_2026.html#study-level-predictors-1",
+    "href": "Presentations/TEAP_2026.html#study-level-predictors-1",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "Study-Level Predictors",
+    "text": "Study-Level Predictors"
+  },
+  {
+    "objectID": "Presentations/TEAP_2026.html#discussion",
+    "href": "Presentations/TEAP_2026.html#discussion",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "Discussion",
+    "text": "Discussion\nMidpoint averaging common, could be relevant to include in model\n\n○ Varies by study\n\nDifferences between student and non-student populations"
+  },
+  {
+    "objectID": "Presentations/TEAP_2026.html#references",
+    "href": "Presentations/TEAP_2026.html#references",
+    "title": "When and Why Advice-Taking Strategies Differ:",
+    "section": "References",
+    "text": "References"
+  },
+  {
     "objectID": "Reports/trihurdle-metaanalysis_report.html",
     "href": "Reports/trihurdle-metaanalysis_report.html",
     "title": "Tri-Hurdle Metaanalysis Model",
@@ -96,96 +208,5 @@
     "title": "Tri-Hurdle Metaanalysis Model",
     "section": "Results",
     "text": "Results\nDisplayed below is a plot of the distribution of WOA values as per the data and as per the model predictions. The model does seem to be overestimating the WOA = .5 values a bit. This is perhaps a prior issue (will see if we can fix).\n\n\n\n\n\n\n\n\n\nBelow is the same plot but broken up by study. The model does not seem to be overestimating the midpoint hurdle for every study, but it does for some. The studies with the most empirical responses around 0.5 seem like they might be the ones with the most overestimation.\n\n\nCode\nreadRDS(here::here(\"Figures\", \"Tri-Hurdle Metaanalysis\", \"ppc_plt_g.rds\"))\n\n\n\n\n\n\n\n\n\n\nIncorporating Predictors\nNext, here are results from adding the predictors already in the dataset to the model! Here are the included predictors we have in this version:\n\nTrial-Level: Distance, Confidence, Distance \\(\\times\\) Confidence\nItem-Level: None\nPerson-Level: Age, Gender, Confidence, Age \\(\\times\\) Gender\nStudy-Level: Student Judge, Almanac Item, Future Item, Expert Advisor, Incentive\n\nAll these results are currently from a small version of the data (11 studies) for some preliminary results. For each predictor, we have a plot with levels of the predictor on the x-axis or in color. For the upper graphs on the plot, we have violin plots of the probabilities of the different discrete choices, and for the lower graph, we have the distribution of WOA values. The filled-in circle point is the mean WOA including the discrete choices, and the open circle point is the mean WOA not including decline or adopt (i.e., just compromise and midpoint).\n\nTrial-Level\n\n\nCode\nsaveRDS(woa_predictor_plt(playdat_full, c(\"distance\", \"confidence\")),\n        here::here(\"Figures\", \"Tri-Hurdle Metaanalysis More Predictors\", \"distance-by-confidence_plt.rds\"))\n\n\n\n\nCode\nreadRDS(here::here(\"Figures\", \"Tri-Hurdle Metaanalysis More Predictors\", \"distance-by-confidence_plt.rds\"))\n\n\n\n\n\nWith increased distance, the probability of declining or adopting decreases, and the probability of adopting increases. With increased confidence, the probability of declining increases, and the probability of compromising decreases.\n\n\n\n\n\n\nPerson-Level\n\n\nCode\nsaveRDS((woa_predictor_plt(playdat_full, c(\"age\", \"female\"))) &\n          scale_fill_manual(\"Gender\",\n                            values = c(\"-1 SD\" = \"#597993\", \"Mean\" = \"blue\", \"+1 SD\" = \"#e38693\"),\n                            labels = c(\"-1 SD\" = \"Male\", \"Mean\" = \"?\", \"+1 SD\" = \"Female\")) &\n          scale_color_manual(\"Gender\",\n                            values = c(\"-1 SD\" = \"#465F73\", \"Mean\" = \"blue\", \"+1 SD\" = \"#D95D6E\"),\n                            labels = c(\"-1 SD\" = \"Male\", \"Mean\" = \"?\", \"+1 SD\" = \"Female\")),\n        here::here(\"Figures\", \"Tri-Hurdle Metaanalysis More Predictors\", \"age-by-female_plt.rds\"))\n\n\n\n\nCode\nreadRDS(here::here(\"Figures\", \"Tri-Hurdle Metaanalysis More Predictors\", \"age-by-female_plt.rds\"))\n\n\n\n\n\nMale participants tended to decline advice more, and this increased with age. Female participants were more likely to compromise, which increased with age, and male participants were less likely to compromise with age. Note: this effect seems like it lessened when I added in more data. Need varying slope?\n\n\n\n\n\n\nStudy-Level\nStudents declined advice less, compromised with advice less, and adopted advice more. When compromising, students tended to give more weight to the advice in their updated belief than did the non-students.\nStudies with almanac items were more prone to perfect averaging.\nStudies that had incentives showed lower rates of declining and adopting but higher rates of midpoint averaging and compromising. However, continuous compromises from these incentivized studies weighed their advice less in their updated judgement than did non-incentivized judgements.\n\n\nCode\n# gets out names of predictors. \n# currently not dynamic to which ones are study-level, etc (this is hardcoded)\nstudy.level_predictors |&gt;\n  walk(~ saveRDS(woa_one_predictor_plt(playdat_full, c(.x)),\n        here::here(\"Figures\", \"Tri-Hurdle Metaanalysis More Predictors\",\n                   paste0(.x, \"_plt.rds\"))), .progress = T)\n\n\n\nCode\nstudy.level_predictors |&gt;\n  walk(~ (readRDS(here::here(\"Figures\", \"Tri-Hurdle Metaanalysis More Predictors\",\n                           paste0(.x, \"_plt.rds\"))) & \n            theme(geom = element_geom(ink = \"#597993\", paper = \"#a2b9cd\"))) |&gt; print())\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNone of the 11 studies in the small version of the dataset had expert advisors, so please discount that plot!\n\n\n\n\n\n\n\n\n\nBelow we can see the distribution of the study-level intercepts for the probability of responses falling into the DAMC categories. To the right we can see those box plots representing the distribution of those sampled intercepts for each study.\n\n\n\n\n\n\n\n\n\n\n\n\nMidpoint Hurdle Prior\nMessing around with the prior specification for the standard deviation of the variance component of the cluster effects of the midpoint hurdle.\nstudent_t_lpdf(sd_7 | 3, 0, 2.5) - 1 * student_t_lccdf(0 | 3, 0, 2.5)\n\nCode\nnu &lt;- 3\nmu &lt;- 0\nsigma &lt;- 2.5\n\nexpand_grid(alpha = c(1), beta = c(10, 2, 1.5, 0.5)) |&gt;\n  pwalk(\\(alpha, beta) {\n    (data.frame(i = seq(0, 10, length.out = 1000)) |&gt;\n         mutate(dens_t = dt((i - mu) / sigma, df = nu) / sigma * 2,\n                dens_g = dgamma(i, shape = alpha, scale = beta)) |&gt;\n         ggplot(aes(x = i, y = dens_t)) +\n         geom_line() +\n         geomtextpath::geom_textline(aes(y = dens_g,\n                                         label = paste0(\"gamma(\", alpha, \n                                                        \", \", beta, \")\")),\n                                     color = \"skyblue3\", size = 6) +\n         coord_cartesian(xlim = c(0, 10), ylim = c(0, .5),\n                         expand = F, clip = \"off\") +\n         guides(y = \"none\") +\n         labs(y = NULL, x= NULL) +\n         theme_classic(base_size = 16)) |&gt;\n      print()})"
-  },
-  {
-    "objectID": "Presentations/TEAP_2026.html#advice-taking",
-    "href": "Presentations/TEAP_2026.html#advice-taking",
-    "title": "When and Why Advice-Taking Strategies Differ:",
-    "section": "",
-    "text": "Studies on advice taking often use a Judge Advisor System setup\n\n○ Judge makes initial judgement\n\n\n○ Judge receives advice\n\n\n○ Judge makes final judgement\n\nOutcome metric commonly “Weight of Advice” (WOA)\n\n\n\n\n\\[ WOA = \\frac{\\text{initial} - \\text{final}}{\\text{initial} - \\text{advice}} \\]\n\n\ntibble(woa = c(\"$WOA = 0$\", \"$WOA = 1$\", \"$0 &lt; WOA &lt; 1$\"),\n        res = c(\"Decline\", \"Adopt\", \"Compromise\")) |&gt;\n  gt() |&gt;\n  fmt_markdown() |&gt;\n  tab_options(column_labels.hidden = T) |&gt;\n  opt_table_font(size = 30) |&gt;\n  opt_horizontal_padding(3)\n\n\n\n\n  \n  \n    \\(WOA = 0\\)\nDecline\n    \\(WOA = 1\\)\nAdopt\n    \\(0 &lt; WOA &lt; 1\\)\nCompromise"
-  },
-  {
-    "objectID": "Presentations/TEAP_2026.html#weight-of-advice",
-    "href": "Presentations/TEAP_2026.html#weight-of-advice",
-    "title": "When and Why Advice-Taking Strategies Differ:",
-    "section": "Weight of Advice",
-    "text": "Weight of Advice\nWOA continuous metric, but often empirically see concentrations of values at 0 and 1\n\ndat |&gt;\n  filter(study %in% c(1, 5, 8)) |&gt;\n  mutate(study = as.character(study)) |&gt;\n  left_join(study_names, by = \"study\") |&gt;\n  mutate(studyname = str_replace_all(studyname, \"_\", \" \")) |&gt;\n  ggplot(aes(x = woa_winsor, y = after_stat(density))) +\n  geom_histogram(color = NA, fill = main_color, binwidth = 0.08) +\n  scale_x_continuous(breaks = c(0, 0.5, 1), labels = c(\"0\", \".5\", \"1\")) +\n  scale_y_continuous(limits = c(0, 6.7), breaks = c(0, 6.7), labels = NULL) +\n  guides(x = guide_axis(cap = \"both\")) +\n  labs(y = NULL, x = \"WOA\") +\n  facet_wrap(~ studyname, scales = \"free_y\") +\n  theme(panel.spacing = unit(40, \"pt\"),\n             axis.text.x = element_text(size = 20))\n\n\n\n\n\n\n\n\nTypically are modeled with standard linear regression procedures\n\n○ Assume normally distributed residuals!\n\n\n(Himmelstein, 2023)"
-  },
-  {
-    "objectID": "Presentations/TEAP_2026.html#dual-hurdle-model",
-    "href": "Presentations/TEAP_2026.html#dual-hurdle-model",
-    "title": "When and Why Advice-Taking Strategies Differ:",
-    "section": "Dual-Hurdle Model",
-    "text": "Dual-Hurdle Model\nSeparates outcome into two phases:\n\n\nDiscrete\nDecline, adopt, or compromise?\nCategorical logit: estimates probability of each choice\n\ntibble(choice = factor(c(\"Decline\", \"Compromise\", \"Adopt\"), \n                       levels = c(\"Decline\", \"Compromise\", \"Adopt\"), ordered = T),\n       p = c(0.45, 0.25, 0.30)) |&gt;\n  ggplot(aes(x = choice, y = p)) +\n  geom_col(fill = main_color) +\n  scale_y_continuous(NULL, limits = c(0, .46), breaks = NULL) +\n  guides(x = guide_axis(NULL, cap = \"both\"))\n\n\n\n\n\n\n\n\n\nContinuous\nIf compromise, how much?\nBeta distribution: estimates continuous WOA between 0 and 1\n\ntibble(woa = rbeta(10000, 1.5, 3)) |&gt;\n  ggplot(aes(x = woa)) +\n  geom_density(fill = main_color, color = NA, adjust = 3) +\n  scale_y_continuous(NULL, limits = c(0, 1.8), breaks = NULL) +\n  scale_x_continuous(limits = c(0, 1), breaks = c(0, .5, 1), labels = c(\"0\", \".5\", \"1\")) +\n  guides(x = guide_axis(NULL, cap = \"both\")) \n\n\n\n\n\n\n\n\n\n\n\n(Himmelstein, 2023)"
-  },
-  {
-    "objectID": "Presentations/TEAP_2026.html#dual-hurdle-mode",
-    "href": "Presentations/TEAP_2026.html#dual-hurdle-mode",
-    "title": "When and Why Advice-Taking Strategies Differ: A Dual Hurdle-Based Meta-Analysis",
-    "section": "Dual-Hurdle Mode",
-    "text": "Dual-Hurdle Mode\n\n\nMakes WOA distributions like…\n\n\n\n\n\n\n\n\n\n\nCan examine effects of predictors for both the categorical and continuous pieces\nCaptures variation at the item- and person-level\nPresent study: extend dual-hurdle model to meta-analytic context\n\n○ Account for study-level variation\n\n\n\n(Himmelstein, 2023)"
-  },
-  {
-    "objectID": "Presentations/TEAP_2026.html#present-study",
-    "href": "Presentations/TEAP_2026.html#present-study",
-    "title": "When and Why Advice-Taking Strategies Differ:",
-    "section": "Present Study",
-    "text": "Present Study\nAdvice taking data from N studies collected in 202X.\n[Details on data collection from Santi’s email]\nStudy-level predictors like student judges, expert advisor, if question was about future events"
-  },
-  {
-    "objectID": "Presentations/TEAP_2026.html#unconditional-model",
-    "href": "Presentations/TEAP_2026.html#unconditional-model",
-    "title": "When and Why Advice-Taking Strategies Differ:",
-    "section": "Unconditional Model",
-    "text": "Unconditional Model\n[Need]"
-  },
-  {
-    "objectID": "Presentations/TEAP_2026.html#tri-hurdle-model",
-    "href": "Presentations/TEAP_2026.html#tri-hurdle-model",
-    "title": "When and Why Advice-Taking Strategies Differ:",
-    "section": "Tri-Hurdle Model??",
-    "text": "Tri-Hurdle Model??\nAdded an extra categorical choice\n\n○ Decline, Adopt, Midpoint, Compromise\n\n[Unconditional trihurdle]"
-  },
-  {
-    "objectID": "Presentations/TEAP_2026.html#conditional-model",
-    "href": "Presentations/TEAP_2026.html#conditional-model",
-    "title": "When and Why Advice-Taking Strategies Differ:",
-    "section": "Conditional Model",
-    "text": "Conditional Model\n[Results lol]"
-  },
-  {
-    "objectID": "Presentations/TEAP_2026.html#discussion",
-    "href": "Presentations/TEAP_2026.html#discussion",
-    "title": "When and Why Advice-Taking Strategies Differ:",
-    "section": "Discussion",
-    "text": "Discussion\n[Stuff stuff stuff]"
-  },
-  {
-    "objectID": "Presentations/TEAP_2026.html#references",
-    "href": "Presentations/TEAP_2026.html#references",
-    "title": "When and Why Advice-Taking Strategies Differ:",
-    "section": "References",
-    "text": "References"
-  },
-  {
-    "objectID": "Presentations/TEAP_2026.html#advice-taking-1",
-    "href": "Presentations/TEAP_2026.html#advice-taking-1",
-    "title": "When and Why Advice-Taking Strategies Differ: A Dual Hurdle-Based Meta-Analysis",
-    "section": "Advice-Taking",
-    "text": "Advice-Taking\nStudies on advice taking often use a Judge Advisor System setup\n\nJudge makes initial judgement\nJudge recieves advice\nJudge makes final judgement\n\nOutcome metric commonly “Weight of Advice” (WOA)\n\n\n\\[ WOA = \\frac{\\text{initial} - \\text{final}}{\\text{initial} - \\text{advice}} \\]\n\n\n\n\n\n\n  \n  \n    \\(WOA = 0\\)\nDecline\n    \\(WOA = 1\\)\nAdopt\n    \\(0 &lt; WOA &lt; 1\\)\nCompromise"
-  },
-  {
-    "objectID": "Presentations/TEAP_2026.html#dual-hurdle-model-1",
-    "href": "Presentations/TEAP_2026.html#dual-hurdle-model-1",
-    "title": "When and Why Advice-Taking Strategies Differ:",
-    "section": "Dual-Hurdle Model",
-    "text": "Dual-Hurdle Model\n\n\nMakes WOA distributions like…\n\nd &lt;- rbind(tibble(pc1 = .25,\n        pc2 = .45,\n        pc3 = .30,\n        a = 1.5,\n        b = 3) |&gt;\n   uncount(1000) |&gt;\n   mutate(woa = pmap_dbl(list(pc1, pc2, pc3, a, b), \\(pc1, pc2, pc3, a, b) {\n     data.frame(res = rmultinom(1, 1, c(pc1, pc2, pc3)),\n                woa = c(rbeta(1, a, b), 0, 1)) |&gt;\n       filter(res == 1) |&gt;\n       pull(woa)}),\n     version = 1),\n   tibble(pc1 = .4,\n        pc2 = .5,\n        pc3 = .1,\n        a = 2,\n        b = 4) |&gt;\n   uncount(1000) |&gt;\n   mutate(woa = pmap_dbl(list(pc1, pc2, pc3, a, b), \\(pc1, pc2, pc3, a, b) {\n     data.frame(res = rmultinom(1, 1, c(pc1, pc2, pc3)),\n                woa = c(rbeta(1, a, b), 0, 1)) |&gt;\n       filter(res == 1) |&gt;\n       pull(woa)}),\n     version = 2),\n   tibble(pc1 = .7,\n        pc2 = .15,\n        pc3 = .15,\n        a = 3,\n        b = 4) |&gt;\n   uncount(1000) |&gt;\n   mutate(woa = pmap_dbl(list(pc1, pc2, pc3, a, b), \\(pc1, pc2, pc3, a, b) {\n     data.frame(res = rmultinom(1, 1, c(pc1, pc2, pc3)),\n                woa = c(rbeta(1, a, b), 0, 1)) |&gt;\n       filter(res == 1) |&gt;\n       pull(woa)}),\n     version = 3),\n   tibble(pc1 = .2,\n        pc2 = .2,\n        pc3 = .6,\n        a = 5,\n        b = 6) |&gt;\n   uncount(1000) |&gt;\n   mutate(woa = pmap_dbl(list(pc1, pc2, pc3, a, b), \\(pc1, pc2, pc3, a, b) {\n     data.frame(res = rmultinom(1, 1, c(pc1, pc2, pc3)),\n                woa = c(rbeta(1, a, b), 0, 1)) |&gt;\n       filter(res == 1) |&gt;\n       pull(woa)}),\n     version = 4))\n\nd |&gt;\n  ggplot(aes(x = woa)) +\n  geom_density(fill = main_color, color = NA, adjust = 1.1) +\n  scale_y_continuous(NULL, breaks = NULL) +\n  scale_x_continuous(limits = c(0, 1), breaks = c(0, .5, 1),\n                     labels = c(\"0\", \".5\", \"1\")) +\n  facet_wrap(~ version, ncol = 2, scales = \"free_y\", axes = \"all_x\") + \n  guides(x = guide_axis(\"WOA\", cap = \"both\")) +\n  theme(axis.line.y = element_blank(),\n        axis.ticks.y = element_blank(),\n        axis.text.x = element_text(size = 25),\n        plot.margin = unit(rep(-1, 4), \"pt\"),\n        strip.background = element_blank(),\n        strip.text.x = element_blank())\n\n\n\n\n\n\n\n\n\nCan examine effects of predictors for both the categorical and continuous pieces\nCaptures variation at the item- and person-level\nPresent study: extend dual-hurdle model to meta-analytic context\n\n○ Account for study-level variation\n\n\n\n\n(Himmelstein, 2023)"
-  },
-  {
-    "objectID": "Presentations/TEAP_2026.html",
-    "href": "Presentations/TEAP_2026.html",
-    "title": "When and Why Advice-Taking Strategies Differ:",
-    "section": "",
-    "text": "Studies on advice taking often use a Judge Advisor System setup\n\n○ Judge makes initial judgement\n\n\n○ Judge receives advice\n\n\n○ Judge makes final judgement\n\nOutcome metric commonly “Weight of Advice” (WOA)\n\n\n\n\n\\[ WOA = \\frac{\\text{initial} - \\text{final}}{\\text{initial} - \\text{advice}} \\]\n\n\ntibble(woa = c(\"$WOA = 0$\", \"$WOA = 1$\", \"$0 &lt; WOA &lt; 1$\"),\n        res = c(\"Decline\", \"Adopt\", \"Compromise\")) |&gt;\n  gt() |&gt;\n  fmt_markdown() |&gt;\n  tab_options(column_labels.hidden = T) |&gt;\n  opt_table_font(size = 30) |&gt;\n  opt_horizontal_padding(3)\n\n\n\n\n  \n  \n    \\(WOA = 0\\)\nDecline\n    \\(WOA = 1\\)\nAdopt\n    \\(0 &lt; WOA &lt; 1\\)\nCompromise"
   }
 ]
