@@ -42,6 +42,7 @@ dat <- dat_full %>%
   filter(!is.na(woa_winsor) & !is.na(zconfidence) & !is.na(age) & !is.na(female) & distance < 1) %>%
   filter(age > 18) |>
   mutate(.by = study,
+         studyname = first(study),
          study = cur_group_id()) %>%
   mutate(.by = c(study, id),
          id = cur_group_id()) %>%
@@ -55,19 +56,20 @@ dat |>
   gt::tab_style(style = gt::cell_text(align = "left"),
                 locations = gt::cells_body())
 
-# code to make a small version of the dataset
-# dat <- dat |>
-#   filter(study %in% sample(study, 20)) %>%
-#   filter(.by = study,
-#          id %in% sample(id, 10)) %>%
-#   mutate(.by = study,
-#          study = cur_group_id()) %>%
-#   mutate(.by = c(study, id),
-#          id = cur_group_id()) %>%
-#   mutate(.by = c(study, trial),
-#          trial = cur_group_id())
+
+#code to make a small version of the dataset
+dat <- dat |>
+  filter(study %in% sample(study, 20)) %>%
+  filter(.by = study,
+         id %in% sample(id, 10)) %>%
+  mutate(.by = study,
+         study = cur_group_id()) %>%
+  mutate(.by = c(study, id),
+         id = cur_group_id()) %>%
+  mutate(.by = c(study, trial),
+         trial = cur_group_id())
 # 
-saveRDS(dat, here::here("..", "Data Clean", "trihurdle-metaanalysis-more-predictors_dat.rds"))
+saveRDS(dat, here::here("..", "Data Clean", "trihurdle-metaanalysis-more-predictors_dat-small_2026-03.15.rds"))
 # dat <- readRDS(here::here("..", "Data Clean", "trihurdle-metaanalysis-more-predictors_dat-small.rds"))
 
 dat %>% summary()
