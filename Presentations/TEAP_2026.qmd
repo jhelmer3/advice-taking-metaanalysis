@@ -279,7 +279,7 @@ tibble("Trial-Level" = list(list("advice distance", "confidence")),
 :::
 
 
-## Unconditional Model
+## Dual-Hurdle Model
 
 Distribution of WOA values as per the **data** and the [model predictions]{style="color:`r main_color`"}
 
