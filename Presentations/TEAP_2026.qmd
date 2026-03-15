@@ -19,7 +19,7 @@ library(tidyverse)
 library(gt)
 library(patchwork)
 
-dat <- readRDS(here::here("..", "Data Clean", "trihurdle-metaanalysis-more-predictors_dat-small_2026-03-10.rds"))
+dat <- readRDS(here::here("..", "Data Clean", "trihurdle-metaanalysis-more-predictors_dat-small_2026-03.15.rds"))
 study_names <- readRDS(here::here("..", "Data Clean", "studynames.rds"))
 condition_names <- readRDS(here::here("..", "Data Clean", "condition-names_more-predictors.rds"))
 data_study_counts <- readRDS(here::here("..", "Data Clean", "data_study_counts.rds"))
@@ -82,9 +82,9 @@ WOA continuous metric, but often empirically see concentrations of values at 0 a
 #| fig-align: center
 #| fig-height: 4
 dat |>
-  filter(study %in% c(1, 15, 22)) |>
+  filter(study %in% c(1, 4, 11)) |>
   mutate(study = as.character(study)) |>
-  left_join(study_names, by = "study") |>
+  # left_join(study_names, by = "study") |>
   mutate(studyname = str_replace_all(studyname, "_", " ")) |>
   ggplot(aes(x = woa_winsor, y = after_stat(density))) +
   geom_histogram(color = NA, fill = main_color, binwidth = 0.08) +
