@@ -433,7 +433,7 @@ study.level_predictors |>
   head(3) |>
   map(~ (readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors",
                            paste0(.x, "_plt_small.rds"))) & 
-            theme(geom = element_geom(ink = "#597993", paper = "#a2b9cd")) &)) |>
+            theme(geom = element_geom(ink = "#597993", paper = "#a2b9cd")))) |>
   wrap_plots(ncol = 3)
 ```
 
@@ -464,6 +464,10 @@ Midpoint averaging common, could be relevant to include in model
 
 Differences between student and non-student populations
 
+<div class="subpoint">○ Declining a lot, but updating more when compromise</div>
+
+Differences between incentivised and non-incentivised studies
+
 
 ## References
 
@@ -474,6 +478,11 @@ Himmelstein, M. (2022). Decline, adopt or compromise? A dual hurdle model for ad
 
 # Thank You!
 
+Contact: jhelmer3@gatech.edu
+
+```{r}
+plot(qrcode::qr_code("https://jhelmer3.github.io/advice-taking-metaanalysis/Presentations/TEAP_2026.html#/title-slide"))
+```
 
 
 

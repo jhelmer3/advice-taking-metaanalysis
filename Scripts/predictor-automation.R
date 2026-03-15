@@ -111,8 +111,10 @@ woa_one_predictor_plt <- function(data, x) {
     mutate(pred1 = condition |> str_extract(paste0(x[1], "\\.[lmh]{1}")) |> str_split_i("\\.", 2),
            .keep = "unused",
            .before = everything()) |>
-    mutate(across(starts_with("pred"), ~ factor(.x, levels = c("l", "m", "h"),
-                                                labels = c("l" = "-1 SD", "m" = "Mean", "h" = "+1 SD"),
+    mutate(across(starts_with("pred"), ~ factor(.x, levels = c("l", "h"),
+                                                # changing! this now hard-coded to only work with
+                                                # binary predictors. needs some love to work with both.
+                                                labels = c("l" = "No", "h" = "Yes"),
                                                 ordered = T))) |>
     mutate(woa = pmap_dbl(list(pc1, pc2, pc3, pc4, a, b), \(pc1, pc2, pc3, pc4, a, b) {
       data.frame(res = rmultinom(1, 1, c(pc1, pc2, pc3, pc4)),

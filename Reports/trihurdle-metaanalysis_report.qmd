@@ -32,7 +32,7 @@ library(patchwork)
 ```{r}
 #| eval: false
 #| code-fold: show
-playdat_full <- readRDS(here::here("..", "Data Clean", "trihurdle-metaanalysis_more-predictors_playdat-full.rds"))
+playdat_full <- readRDS(here::here("..", "Data Clean", "trihurdle-metaanalysis_more-predictors_playdat-full_small_2026-03-10.rds"))
 ```
 
 ```{r}
@@ -187,7 +187,7 @@ Studies that had incentives showed lower rates of declining and adopting but hig
 study.level_predictors |>
   walk(~ saveRDS(woa_one_predictor_plt(playdat_full, c(.x)),
         here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors",
-                   paste0(.x, "_plt.rds"))), .progress = T)
+                   paste0(.x, "_plt_small.rds"))), .progress = T)
 ```
 
 ```{r}

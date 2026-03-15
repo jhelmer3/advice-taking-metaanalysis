@@ -81,28 +81,28 @@
     "href": "Presentations/TEAP_2026.html#weight-of-advice",
     "title": "When and Why Advice-Taking Strategies Differ:",
     "section": "Weight of Advice",
-    "text": "Weight of Advice\nWOA continuous metric, but often empirically see concentrations of values at 0 and 1\n\nTypically are modeled with standard linear regression procedures\n\n○ Assume normally distributed residuals!\n\n\n(Himmelstein, 2023)"
+    "text": "Weight of Advice\nWOA continuous metric, but often empirically see concentrations of values at 0 and 1\n\nTypically are modeled with standard linear regression procedures\n\n○ Assume normally distributed residuals!\n\n\n(Himmelstein, 2022)"
   },
   {
     "objectID": "Presentations/TEAP_2026.html#dual-hurdle-model",
     "href": "Presentations/TEAP_2026.html#dual-hurdle-model",
     "title": "When and Why Advice-Taking Strategies Differ:",
     "section": "Dual-Hurdle Model",
-    "text": "Dual-Hurdle Model\nSeparates outcome into two phases:\n\n\nDiscrete\n\nDecline, adopt, or compromise?\nCategorical logit: estimates probability of each choice\n\n\n\n\n\n\n\n\n\n\n\nContinuous\n\nIf compromise, how much?\nBeta distribution: estimates continuous WOA between 0 and 1\n\n\n\n\n\n\n\n\n\n\n\n\n(Himmelstein, 2023)"
+    "text": "Dual-Hurdle Model\nSeparates outcome into two phases:\n\n\nDiscrete\n\nDecline, adopt, or compromise?\nCategorical logit: estimates probability of each choice\n\n\n\n\n\n\n\n\n\n\n\nContinuous\n\nIf compromise, how much?\nBeta distribution: estimates continuous WOA between 0 and 1\n\n\n\n\n\n\n\n\n\n\n\n\n(Himmelstein, 2022)"
   },
   {
     "objectID": "Presentations/TEAP_2026.html#dual-hurdle-model-1",
     "href": "Presentations/TEAP_2026.html#dual-hurdle-model-1",
     "title": "When and Why Advice-Taking Strategies Differ:",
     "section": "Dual-Hurdle Model",
-    "text": "Dual-Hurdle Model\n\n\nMakes WOA distributions like…\n\n\n\n\n\n\n\n\n\n\nCan examine effects of predictors for both the categorical and continuous pieces\nCaptures variation at the item- and person-level\nPresent study: extend dual-hurdle model to meta-analytic context\n\n○ Account for study-level variation\n\n\n\n(Himmelstein, 2023)"
+    "text": "Dual-Hurdle Model\n\n\nMakes WOA distributions like…\n\n\n\n\n\n\n\n\n\n\nCan examine effects of predictors for both the categorical and continuous pieces\nCaptures variation at the item- and person-level\nPresent study: extend dual-hurdle model to meta-analytic context\n\n○ Account for study-level variation\n\n\n\n(Himmelstein, 2022)"
   },
   {
     "objectID": "Presentations/TEAP_2026.html#present-study",
     "href": "Presentations/TEAP_2026.html#present-study",
     "title": "When and Why Advice-Taking Strategies Differ:",
     "section": "Present Study",
-    "text": "Present Study\nUsed data collected for an advice-taking metaanalysis on gender effects (Santi et al) (lol)\n\n○ Full dataset included 94 studies, 308,230 observations.\n\nRemoved cases that had missing data for WOA or any of the predictors\n\n○ Remaining data had 32 studies, 107,229.\n\n\n\n\n\n\n\n\n\n\n  \n    \n      Predictors\n    \n    \n    \n      Trial-Level\n      Person-Level\n      Study-Level\n    \n  \n  \n    ○ Advice Distance○ Confidence\n○ Age○ Gender\n○ Student Population○ Almanac Item○ Future Item○ Expert Advisor○ Incentive\n  \n  \n\n\n\n\n\n\n(Santi et al, lol)"
+    "text": "Present Study\nUsed data collected for an advice-taking metaanalysis on gender effects (Kausel et al., 2024)\n\n○ Full dataset included 94 studies and 308,230 observations.\n\nRemoved cases that had missing data for WOA or any of the predictors\n\n○ Remaining data had 32 studies: 107,229.\n\n\n\n\n\n\n  \n    \n      Predictors\n    \n    \n    \n      Trial-Level\n      Person-Level\n      Study-Level\n    \n  \n  \n    ○ Advice Distance○ Confidence\n○ Age○ Gender\n○ Student Population○ Almanac Item○ Future Item○ Expert Advisor○ Incentive\n  \n  \n\n\n\n\n\n(Kausel et al., 2024)"
   },
   {
     "objectID": "Presentations/TEAP_2026.html#unconditional-model",
@@ -172,14 +172,14 @@
     "href": "Presentations/TEAP_2026.html#discussion",
     "title": "When and Why Advice-Taking Strategies Differ:",
     "section": "Discussion",
-    "text": "Discussion\nMidpoint averaging common, could be relevant to include in model\n\n○ Varies by study\n\nDifferences between student and non-student populations"
+    "text": "Discussion\nMidpoint averaging common, could be relevant to include in model\n\n○ Varies by study\n\nDifferences between student and non-student populations\n\n○ Declining a lot, but updating more when compromise\n\nDifferences between incentivised and non-incentivised studies"
   },
   {
     "objectID": "Presentations/TEAP_2026.html#references",
     "href": "Presentations/TEAP_2026.html#references",
     "title": "When and Why Advice-Taking Strategies Differ:",
     "section": "References",
-    "text": "References"
+    "text": "References\nKausel, E.E., Ventura, S., Reyes, V. (November 2024). [Conference presentation]. Gender Differences in Advice Taking: A Meta-Analytic Path Model. Society of Judgement and Decision Making, New York, NY.\nHimmelstein, M. (2022). Decline, adopt or compromise? A dual hurdle model for advice utilization. Journal of Mathematical Psychology, 110, 102695. https://doi.org/10.1016/j.jmp.2022.102695"
   },
   {
     "objectID": "Reports/trihurdle-metaanalysis_report.html",
