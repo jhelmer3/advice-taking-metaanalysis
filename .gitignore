@@ -5,6 +5,9 @@
 
 /.quarto/
 Models/*.rds
+Models/*.qs
+Models/Thomas/*.rds
+Models/Thomas/*.qs
 Figures/**/*.rds
 
 **/*.quarto_ipynb
