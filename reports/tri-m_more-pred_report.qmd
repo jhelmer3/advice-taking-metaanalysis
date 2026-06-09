@@ -1,0 +1,383 @@
+---
+title: "Tri-Hurdle Metaanalysis Model"
+subtitle: "Analysis Report"
+date: last-modified
+toc: true
+format: 
+  html:
+    code-fold: true
+    self-contained: true
+    grid: 
+      margin-width: 350px
+      gutter-width: 1em
+author: Jessica Helmer
+fig-dpi: 600
+knitr:
+    opts_chunk: 
+      dev: "ragg_png"
+html-table-processing: none
+---
+
+### Setup
+
+::: panel-tabset
+#### Libraries
+```{r}
+#| code-fold: show
+#| message: false
+library(tidyverse)
+library(patchwork)
+library(targets)
+library(gt)
+```
+
+#### Reading
+```{r}
+#| code-fold: show
+tar_load(c(dat, testdat, predictors, rhats, tracerank_plts,
+           ppc_plt, personlvl_plt, itemlvl_plt, studylvl_plt,
+           patched_pred_plts), 
+         store = here::here("_targets"))
+```
+
+#### Functions
+```{r}
+#| code-fold: show
+
+```
+
+#### Cleaning
+```{r}
+#| code-fold: show
+
+```
+
+:::
+
+## Results
+
+#### Model Diagnostics
+
+
+:::: {.columns}
+::: {.column width="33%"}
+```{r}
+top_nine <- rhats |>
+  head(9)
+
+top_nine |>
+  gt() |>
+  fmt_number() |>
+  tab_style(cell_text(weight = "bold"),
+            cells_column_labels()) |>
+  tab_footnote("Selected rhat values, sorted highest to lowest." |>
+                 str_wrap(10) |> html()) |>
+  tab_options(table.width = px(180))
+```
+:::
+
+::: {.column width="66%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+tracerank_plts
+```
+:::
+::::
+
+
+Displayed below is a plot of the distribution of WOA values as per the **data** and as per the [model]{style="color:#5179A9"} predictions. 
+
+```{r}
+#| fig-width: 4
+#| fig-height: 2.5
+#| fig-align: center
+#| out-width: 66.66%
+ppc_plt
+```
+
+
+### Person-Level Intercepts
+
+```{r}
+#| fig-width: 4
+#| fig-height: 2.5
+#| fig-align: center
+#| layout-ncol: 3
+#| column: page
+
+personlvl_plt
+itemlvl_plt
+studylvl_plt
+```
+
+### Predictors 
+
+<!-- #### Empirical Distributions of Predictors -->
+
+<!-- ```{r} -->
+<!-- dat  |> -->
+<!--   mutate(female = recode_values(female, -->
+<!--                                 1 ~ 1, -->
+<!--                                 0 ~ 0, -->
+<!--                                 2 ~ 0), -->
+<!--          female = female - mean(female)) |> -->
+<!--   select(all_of(predictors)) |>  -->
+<!--   imap(\(pred, idx) { -->
+
+<!--     testdat_lvls <- testdat |> -->
+<!--       select(all_of(idx)) |> -->
+<!--       unique() -->
+
+<!--     tibble(pred) |> -->
+<!--       ggplot(aes(x = pred)) + -->
+<!--       geom_segment(data = testdat_lvls, -->
+<!--                    aes(x = .data[[idx]], y = 0, yend = Inf), -->
+<!--                    linewidth = 1.2) + -->
+<!--       {if (length(unique(pred)) == 2) geom_bar(aes(y = after_stat(prop)), alpha = 0.9)  -->
+<!--         else geom_histogram(aes(y = after_stat(density)), -->
+<!--                             bins = 10, alpha = 0.9)} + -->
+<!--       scale_x_continuous(idx |>  -->
+<!--                            str_replace_all("_|big5", " ") |> -->
+<!--                            str_wrap(width = 15) |> -->
+<!--                            str_to_sentence(), -->
+<!--                          breaks = {if (length(unique(pred)) == 2) unique(pred) -->
+<!--                            else waiver()}, labels = \(breaks) round(breaks, 2)) + -->
+<!--       guides(x = guide_axis(cap = T), -->
+<!--              y = guide_none(NULL)) -->
+<!--   }) |>  -->
+<!--   wrap_plots(ncol = 5) & -->
+<!--   theme_classic() & -->
+<!--   theme(aspect.ratio = 1, -->
+<!--         geom = element_geom(ink = "seagreen")) & -->
+<!--   plot_annotation(caption = "Lines represent levels used by the model to create posterior predictive distributions.") -->
+<!-- ``` -->
+
+#### Posterior Predictive Distributions of Predictors
+
+```{r}
+#| fig-width: 6
+#| fig-height: 5.5
+#| fig-align: center
+#| out-width: 66.66%
+#| layout-ncol: 2
+
+walk(patched_pred_plts, print)
+```
+
+
+
+<!-- ## Overview -->
+
+<!-- ```{r setup} -->
+<!-- knitr::read_chunk( -->
+<!--   lines = readLines(here::here("Models", "trihurdle-metaanalysis_model-code.stan")), -->
+<!--   label = "stan_code") -->
+
+<!-- knitr::read_chunk( -->
+<!--   lines = readLines(here::here("Scripts", "trihurdle-metaanalysis_1_pre-model.R")), -->
+<!--   label = "r_pre-model") -->
+
+<!-- knitr::read_chunk( -->
+<!--   lines = readLines(here::here("Scripts", "trihurdle-metaanalysis_2_post-model.R")), -->
+<!--   label = "r_post-model") -->
+<!-- ``` -->
+
+<!-- After fitting the tri-hurdle model on the Onkal (2009) Study 1 data, we combined it with the metaanalytic approach.  -->
+
+<!-- ## Code -->
+
+<!-- ```{r stan_code, eval = F} -->
+<!-- #| code-summary: "Stan Model Code" -->
+<!-- #| code-fold: true -->
+<!-- ``` -->
+
+<!-- ```{r r_pre-model, eval = F} -->
+<!-- #| code-summary: "R Code Model Setup" -->
+<!-- #| code-fold: true -->
+<!-- ``` -->
+
+<!-- ```{r r_post-model, eval = F} -->
+<!-- #| code-summary: "R Code Model Results" -->
+<!-- #| code-fold: true -->
+<!-- ``` -->
+
+
+<!-- ## Results -->
+
+<!-- Displayed below is a plot of the distribution of WOA values as per the **data** and as per the [model]{style="color:#5179A9"} predictions. The model does seem to be overestimating the WOA = .5 values a bit. This is perhaps a prior issue (will see if we can fix). -->
+
+<!-- ```{r, echo = F} -->
+<!-- #| fig-width: 4 -->
+<!-- #| fig-height: 2.5 -->
+<!-- #| fig-align: center -->
+<!-- #| out-width: 66.66% -->
+
+<!-- knitr::include_graphics(here::here("Figures", "Tri-Hurdle Metaanalysis", "ppc_plt.png")) -->
+<!-- ``` -->
+
+<!-- Below is the same plot but broken up by study. The model does not seem to be overestimating the midpoint hurdle for every study, but it does for some. The studies with the most empirical responses around 0.5 seem like they might be the ones with the most overestimation. -->
+
+<!-- ```{r} -->
+<!-- #| fig-width: 12 -->
+<!-- #| fig-height: 10 -->
+<!-- #| fig-column: page -->
+<!-- #| out-width: 95% -->
+<!-- readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis", "ppc_plt_g.rds")) -->
+<!-- ``` -->
+
+
+<!-- ### Incorporating Predictors -->
+
+<!-- Next, here are results from adding the predictors already in the dataset to the model! Here are the included predictors we have in this version: -->
+
+<!-- - **Trial-Level**: Distance, Confidence, Distance $\times$ Confidence -->
+<!-- - **Item-Level**: None -->
+<!-- - **Person-Level**: Age, Gender, Confidence, Age $\times$ Gender -->
+<!-- - **Study-Level**: Student Judge, Almanac Item, Future Item, Expert Advisor, Incentive -->
+
+<!-- All these results are currently from a small version of the data (11 studies) for some preliminary results. For each predictor, we have a plot with levels of the predictor on the x-axis or in color. For the upper graphs on the plot, we have violin plots of the probabilities of the different discrete choices, and for the lower graph, we have the distribution of WOA values. The filled-in circle point is the mean WOA including the discrete choices, and the open circle point is the mean WOA not including decline or adopt (i.e., just compromise and midpoint). -->
+
+<!-- #### Trial-Level -->
+
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- saveRDS(woa_predictor_plt(playdat_full, c("distance", "confidence")), -->
+<!--         here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "distance-by-confidence_plt.rds")) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- #| fig-width: 6 -->
+<!-- #| fig-height: 5.5 -->
+<!-- #| fig-align: center -->
+<!-- #| out-width: 66.66% -->
+<!-- #| fig-cap: "With increased distance, the probability of declining or adopting decreases, and the probability of adopting increases. With increased confidence, the probability of declining increases, and the probability of compromising decreases." -->
+<!-- #| cap-location: margin -->
+<!-- readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "distance-by-confidence_plt.rds")) -->
+<!-- ``` -->
+
+<!-- #### Person-Level -->
+
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- #| message: false -->
+<!-- saveRDS((woa_predictor_plt(playdat_full, c("age", "female"))) & -->
+<!--           scale_fill_manual("Gender", -->
+<!--                             values = c("-1 SD" = "#597993", "Mean" = "blue", "+1 SD" = "#e38693"), -->
+<!--                             labels = c("-1 SD" = "Male", "Mean" = "?", "+1 SD" = "Female")) & -->
+<!--           scale_color_manual("Gender", -->
+<!--                             values = c("-1 SD" = "#465F73", "Mean" = "blue", "+1 SD" = "#D95D6E"), -->
+<!--                             labels = c("-1 SD" = "Male", "Mean" = "?", "+1 SD" = "Female")), -->
+<!--         here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "age-by-female_plt.rds")) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- #| fig-width: 6 -->
+<!-- #| fig-height: 5.5 -->
+<!-- #| fig-align: center -->
+<!-- #| out-width: 66.66% -->
+<!-- #| fig-cap: "Male participants tended to decline advice more, and this increased with age. Female participants were more likely to compromise, which increased with age, and male participants were less likely to compromise with age. \n Note: this effect seems like it lessened when I added in more data. Need varying slope?" -->
+<!-- #| cap-location: margin -->
+<!-- readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", "age-by-female_plt.rds")) -->
+<!-- ``` -->
+
+<!-- #### Study-Level -->
+
+<!-- Students declined advice less, compromised with advice less, and adopted advice more. When compromising, students tended to give more weight to the advice in their updated belief than did the non-students. -->
+
+<!-- Studies with almanac items were more prone to perfect averaging. -->
+
+<!-- Studies that had incentives showed lower rates of declining and adopting but higher rates of midpoint averaging and compromising. However, continuous compromises from these incentivized studies weighed their advice less in their updated judgement than did non-incentivized judgements. -->
+
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- # gets out names of predictors.  -->
+<!-- # currently not dynamic to which ones are study-level, etc (this is hardcoded) -->
+<!-- study.level_predictors |> -->
+<!--   walk(~ saveRDS(woa_one_predictor_plt(playdat_full, c(.x)), -->
+<!--         here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", -->
+<!--                    paste0(.x, "_plt_small.rds"))), .progress = T) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- #| fig-width: 6 -->
+<!-- #| fig-height: 5.5 -->
+<!-- #| fig-align: center -->
+<!-- #| out-width: 66.66% -->
+<!-- #| layout-ncol: 2 -->
+<!-- #| layout-nrow: 6 -->
+<!-- #| message: false -->
+<!-- study.level_predictors |> -->
+<!--   walk(~ (readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors", -->
+<!--                            paste0(.x, "_plt.rds"))) &  -->
+<!--             theme(geom = element_geom(ink = "#597993", paper = "#a2b9cd"))) |> print()) -->
+<!-- ``` -->
+
+<!-- None of the 11 studies in the small version of the dataset had expert advisors, so please discount that plot!  -->
+
+<!-- ```{r, echo = F, message = F} -->
+<!-- #| fig-width: 4 -->
+<!-- #| fig-height: 16 -->
+<!-- #| out-width: 100% -->
+<!-- #| column: margin -->
+
+<!-- cowplot::plot_grid(plotlist =  -->
+<!--                      list(readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis", "p_DAC_forestplt_legend.rds")), -->
+<!--                           readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis", "p_DAC_forestplt.rds")) + -->
+<!--                             scale_x_continuous(NULL, breaks = c(0, .25, .5, .75, 1), -->
+<!--                                                labels = scales::percent_format(), -->
+<!--                                                position = "top", -->
+<!--                                                expand = c(0, 0)) + -->
+<!--                             coord_cartesian(xlim = c(0, 1), clip = "off") + -->
+<!--                             theme(plot.margin = margin(10, 10, 0, 1), -->
+<!--                                   axis.text.y = element_text(size = 10.5), -->
+<!--                                   axis.text.x = element_text(size = 10))), -->
+<!--                    ncol = 1, rel_heights = c(0.042, 1)) -->
+
+<!-- ``` -->
+
+<!-- Below we can see the distribution of the study-level intercepts for the probability of responses falling into the DAMC categories. To the right we can see those box plots representing the distribution of those sampled intercepts for each study. -->
+
+<!-- ```{r, echo = F} -->
+<!-- #| fig-width: 4 -->
+<!-- #| fig-height: 2.5 -->
+<!-- #| fig-align: center -->
+<!-- #| out-width: 66.66% -->
+
+<!-- readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis", "studylvl_plt.rds")) -->
+<!-- ``` -->
+
+
+<!-- ### Midpoint Hurdle Prior -->
+
+<!-- Messing around with the prior specification for the standard deviation of the variance component of the cluster effects of the midpoint hurdle. -->
+
+<!-- `student_t_lpdf(sd_7 | 3, 0, 2.5) - 1 * student_t_lccdf(0 | 3, 0, 2.5)` -->
+
+<!-- ```{r} -->
+<!-- #| fig-width: 4 -->
+<!-- #| fig-height: 3 -->
+<!-- #| layout-ncol: 4 -->
+<!-- nu <- 3 -->
+<!-- mu <- 0 -->
+<!-- sigma <- 2.5 -->
+
+<!-- expand_grid(alpha = c(1), beta = c(10, 2, 1.5, 0.5)) |> -->
+<!--   pwalk(\(alpha, beta) { -->
+<!--     (data.frame(i = seq(0, 10, length.out = 1000)) |> -->
+<!--          mutate(dens_t = dt((i - mu) / sigma, df = nu) / sigma * 2, -->
+<!--                 dens_g = dgamma(i, shape = alpha, scale = beta)) |> -->
+<!--          ggplot(aes(x = i, y = dens_t)) + -->
+<!--          geom_line() + -->
+<!--          geomtextpath::geom_textline(aes(y = dens_g, -->
+<!--                                          label = paste0("gamma(", alpha,  -->
+<!--                                                         ", ", beta, ")")), -->
+<!--                                      color = "skyblue3", size = 6) + -->
+<!--          coord_cartesian(xlim = c(0, 10), ylim = c(0, .5), -->
+<!--                          expand = F, clip = "off") + -->
+<!--          guides(y = "none") + -->
+<!--          labs(y = NULL, x= NULL) + -->
+<!--          theme_classic(base_size = 16)) |> -->
+<!--       print()}) -->
+<!-- ``` -->
+
