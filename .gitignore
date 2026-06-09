@@ -11,3 +11,5 @@ models/thomas/*.rds
 models/thomas/*.qs
 figures/**/*.rds
 
+
+**/*.quarto_ipynb
