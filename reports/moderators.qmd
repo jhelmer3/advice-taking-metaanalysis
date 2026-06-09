@@ -1,0 +1,68 @@
+---
+title: "Study Predictors"
+date: last-modified
+toc: true
+format: 
+  html:
+    code-fold: true
+    self-contained: true
+    grid: 
+      margin-width: 350px
+      gutter-width: 1em
+author: Jessica Helmer
+fig-dpi: 600
+knitr:
+    opts_chunk: 
+      dev: "ragg_png"
+---
+
+### Setup
+
+::: panel-tabset
+#### Libraries
+```{r}
+#| code-fold: show
+#| message: false
+library(tidyverse)
+library(gt)
+```
+
+#### Reading
+```{r}
+#| code-fold: show
+moderators <- rio::import(here::here("..", "Data Clean", "moderators.xlsx")) |> 
+  select(-c(study, Population, TaskType, Uncertainty, Winsorization, `Sample Size`)) |>
+  mutate(across(everything(), ~ str_extract(.x, "TRUE|FALSE") |> as.logical())) |>
+  summarize(across(everything(), ~ mean(.x, na.rm = T)))
+
+rio::import(here::here("..", "Data Clean", "moderators.xlsx")) |> 
+  select(TaskType) |>
+  count(TaskType)
+```
+
+
+#### Functions
+```{r}
+#| code-fold: show
+```
+
+#### Cleaning
+```{r}
+#| code-fold: show
+```
+
+:::
+
+
+
+```{r}
+#| fig-height: 3
+list(1:6, 7:12, 13:17) |>
+  map(\(cols) moderators |>
+  select(all_of(cols)) |>
+  gt() |>
+  fmt_percent() |>
+  patchwork::wrap_table()) |>
+  patchwork::wrap_plots(nrow = 3)
+```
+

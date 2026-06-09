@@ -5,6 +5,7 @@
 
 /.quarto/
 models/*.rds
+models/*.qs
 models/tri-hurdle_metaanalysis/*.rds
 models/tri-hurdle_metaanalysis/*.qs
 models/thomas/*.rds

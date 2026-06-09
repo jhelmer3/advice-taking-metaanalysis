@@ -1,0 +1,211 @@
+---
+title: "Thomas Tri-Hurdle Model"
+subtitle: "Analysis Report"
+date: last-modified
+toc: true
+format: 
+  html:
+    code-fold: true
+    self-contained: true
+    grid: 
+      margin-width: 350px
+      gutter-width: 1em
+author: Jess Helmer
+fig-dpi: 600
+knitr:
+    opts_chunk: 
+      dev: "ragg_png"
+html-table-processing: none
+---
+
+### Setup
+
+::: panel-tabset
+#### Libraries
+```{r}
+#| code-fold: show
+#| message: false
+library(tidyverse)
+library(patchwork)
+library(targets)
+library(gt)
+```
+
+#### Reading
+```{r}
+#| code-fold: show
+tar_load(c(dat, testdat, predictors, rhats, tracerank_plts,
+           ppc_plt, personlvl_plt, patched_pred_plts), 
+         store = here::here("_targets"))
+```
+
+```{r}
+#| code-fold: show
+condition_names <- readRDS(here::here("..", "Data Clean", "Thomas", "thomas_small_condition-names.rds"))
+conditions <- readRDS(here::here("..", "Data Clean", "Thomas", "thomas_small_conditions.rds"))
+```
+
+
+#### Functions
+```{r}
+#| code-fold: show
+
+```
+
+#### Cleaning
+```{r}
+#| code-fold: show
+
+```
+
+:::
+
+## Overview
+
+<!-- ```{r} -->
+<!-- #| file: "../Scripts/Thomas/thomas_small_3_post-model.R" -->
+<!-- ``` -->
+
+
+<!-- ```{r setup} -->
+<!-- # knitr::read_chunk( -->
+<!-- #   lines = readLines(here::here("Models", "trihurdle-metaanalysis_model-code.stan")), -->
+<!-- #   label = "stan_code") -->
+<!-- #  -->
+<!-- # knitr::read_chunk( -->
+<!-- #   lines = readLines(here::here("Scripts", "Trihurdle Metanalysis", "trihurdle-metaanalysis_1_pre-model.R")), -->
+<!-- #   label = "r_pre-model") -->
+<!-- #  -->
+<!-- # knitr::read_chunk( -->
+<!-- #   lines = readLines(here::here("Scripts", "Trihurdle Metanalysis", "trihurdle-metaanalysis_2_post-model.R")), -->
+<!-- #   label = "r_post-model") -->
+<!-- ``` -->
+
+<!-- After fitting the tri-hurdle model on the Onkal (2009) Study 1 data, we combined it with the metaanalytic approach.  -->
+
+## Code
+
+<!-- ```{r stan_code, eval = F} -->
+<!-- #| code-summary: "Stan Model Code" -->
+<!-- #| code-fold: true -->
+<!-- ``` -->
+
+<!-- ```{r r_pre-model, eval = F} -->
+<!-- #| code-summary: "R Code Model Setup" -->
+<!-- #| code-fold: true -->
+<!-- ``` -->
+
+<!-- ```{r r_post-model, eval = F} -->
+<!-- #| code-summary: "R Code Model Results" -->
+<!-- #| code-fold: true -->
+<!-- ``` -->
+
+## Results
+
+#### Model Diagnostics
+
+
+:::: {.columns}
+::: {.column width="33%"}
+```{r}
+top_nine <- rhats |>
+  head(9)
+
+top_nine |>
+  gt() |>
+  fmt_number() |>
+  tab_style(cell_text(weight = "bold"),
+            cells_column_labels()) |>
+  tab_footnote("Selected rhat values, sorted highest to lowest." |>
+                 str_wrap(10) |> html()) |>
+  tab_options(table.width = px(180))
+```
+:::
+
+::: {.column width="66%"}
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+tracerank_plts
+```
+:::
+::::
+
+
+Displayed below is a plot of the distribution of WOA values as per the **data** and as per the [model]{style="color:#5179A9"} predictions. 
+
+```{r}
+#| fig-width: 4
+#| fig-height: 2.5
+#| fig-align: center
+#| out-width: 66.66%
+ppc_plt
+```
+
+
+### Person-Level Intercepts
+
+```{r}
+#| fig-width: 4
+#| fig-height: 2.5
+#| fig-align: center
+#| out-width: 66.66%
+
+personlvl_plt
+```
+
+### Predictors 
+
+#### Empirical Distributions of Predictors
+
+```{r}
+dat  |>
+  mutate(female = recode_values(female,
+                                1 ~ 1,
+                                0 ~ 0,
+                                2 ~ 0),
+         female = female - mean(female)) |>
+  select(all_of(predictors)) |> 
+  imap(\(pred, idx) {
+    
+    testdat_lvls <- testdat |>
+      select(all_of(idx)) |>
+      unique()
+    
+    tibble(pred) |>
+      ggplot(aes(x = pred)) +
+      geom_segment(data = testdat_lvls,
+                   aes(x = .data[[idx]], y = 0, yend = Inf),
+                   linewidth = 1.2) +
+      {if (length(unique(pred)) == 2) geom_bar(aes(y = after_stat(prop)), alpha = 0.9) 
+        else geom_histogram(aes(y = after_stat(density)),
+                            bins = 10, alpha = 0.9)} +
+      scale_x_continuous(idx |> 
+                           str_replace_all("_|big5", " ") |>
+                           str_wrap(width = 15) |>
+                           str_to_sentence(),
+                         breaks = {if (length(unique(pred)) == 2) unique(pred)
+                           else waiver()}, labels = \(breaks) round(breaks, 2)) +
+      guides(x = guide_axis(cap = T),
+             y = guide_none(NULL))
+  }) |> 
+  wrap_plots(ncol = 5) &
+  theme_classic() &
+  theme(aspect.ratio = 1,
+        geom = element_geom(ink = "seagreen")) &
+  plot_annotation(caption = "Lines represent levels used by the model to create posterior predictive distributions.")
+```
+
+#### Posterior Predictive Distributions of Predictors
+
+```{r}
+#| fig-width: 6
+#| fig-height: 5.5
+#| fig-align: center
+#| out-width: 66.66%
+#| layout-ncol: 2
+
+walk(patched_pred_plts, print)
+```
+
+

@@ -1,0 +1,143 @@
+---
+title: "Metaanalysis Model"
+subtitle: "Analysis Report"
+date: last-modified
+toc: true
+format: 
+  html:
+    self-contained: true
+    grid: 
+      margin-width: 350px
+      gutter-width: 1em
+author: Jessica Helmer
+fig-dpi: 600
+knitr:
+    opts_chunk: 
+      dev: "ragg_png"
+cache: true
+---
+
+## Overview
+
+```{r setup}
+#| include: false
+library(tidyverse)
+
+knitr::read_chunk(
+  lines = readLines(here::here("Models", "metaanalysis_model-code.stan")),
+  label = "stan_code")
+
+knitr::read_chunk(
+  lines = readLines(here::here("Scripts", "metaanalysis_1_pre-model.R")),
+  label = "r_pre-model")
+
+knitr::read_chunk(
+  lines = readLines(here::here("Scripts", "metaanalysis_2_post-model.R")),
+  label = "r_post-model")
+```
+
+I have been working on converting the [Himmelstein (2022)](https://doi.org/10.1016/j.jmp.2022.102695) advice-taking dual-hurdle model from a two-level cross-classified model, with responses cross-classified within judges and items, into a three-level cross-classified model, with responses cross-classified within judges and items and then nested within studies. To do this, I added a third level to the multilevel structure of the model that would account for study-level variance in the intercept estimates in both the part of the model that estimates the probabilities of Decline, Adopt, and Compromise (DAC) as well as the part that estimates the continuous Weight of Advice (WOA) values by modifying the Stan code and implementation in R. I then fit the model to the full dataset of WOA studies.
+
+## Code
+
+```{r stan_code, eval = F}
+#| code-summary: "Stan Model Code"
+#| code-fold: true
+```
+
+```{r r_pre-model, eval = F}
+#| code-summary: "R Code Model Setup"
+#| code-fold: true
+```
+
+```{r r_post-model, eval = F}
+#| code-summary: "R Code Model Results"
+#| code-fold: true
+```
+
+## Results
+
+Displayed below is a plot of the distribution of WOA values as per the **data** and as per the <span style="color:#5179A9">model</span> predictions. We can see the large proportion of WOA values near zero and one, with a range of values between as the DAC framework would expect. 
+
+```{r, message = F, echo = F}
+#| fig-width: 4
+#| fig-height: 2.5
+#| fig-align: center
+#| out-width: 66.66%
+readRDS(here::here("Figures", "Metaanalysis", "ppc_plt.rds")) +
+  theme(panel.background = element_blank(),
+        legend.position = "bottom",
+        text = element_text(family = "Roboto", size = 12),
+        plot.margin = margin(2, 10, 2, 10),
+        legend.margin = margin(-10, 2, 2, 2),
+        axis.line.x = element_line())
+```
+
+One noticeable piece here is the bump at .5 exactly, with lower density surrounding it. This seems to be a study-level phenomenon—some studies have many responses with WOA values of exactly .5. Below are the studies with the highest proportions of the .5 responses.
+
+```{r, echo = F}
+fifprop <- readRDS(here::here("..", "Data Clean", "topfifs_dat.rds")) %>%
+  select(fifprop) %>%
+  mutate(fifprop = fifprop * 100) %>% 
+  colMeans() %>% 
+  round(2) %>% 
+  paste0(., "%")
+```
+
+```{r, echo = F}
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-align: center
+#| out-width: 66.66%
+#| fig-cap: !expr paste0("The average proportion of .5's in an given study was ", fifprop, ".")
+#| cap-location: margin
+readRDS(here::here("Figures", "Metaanalysis", "topfifs_plt.rds"))
+```
+
+It may be helpful to identify why certain studies have more responses of exactly .5 than others—the model seems to be fitting the data well across all values except the center.
+
+```{r, echo = F, message = F}
+#| fig-width: 4
+#| fig-height: 16
+#| out-width: 100%
+#| column: margin
+
+cowplot::plot_grid(plotlist = 
+                     list(readRDS(here::here("Figures", "Metaanalysis", "p_DAC_forestplt_legend.rds")),
+                          readRDS(here::here("Figures", "Metaanalysis", "p_DAC_forestplt.rds")) +
+                            scale_x_continuous(NULL, breaks = c(0, .25, .5, .75, 1),
+                                               labels = scales::percent_format(),
+                                               position = "top",
+                                               expand = c(0, 0)) +
+                            coord_cartesian(xlim = c(0, 1), clip = "off") +
+                            theme(plot.margin = margin(10, 10, 0, 1),
+                                  axis.text.y = element_text(size = 10.5),
+                                  axis.text.x = element_text(size = 10))),
+                   nrow = 2, rel_heights = c(0.018, 1))
+
+```
+
+Below we can see the distribution of the study-level intercepts for the probability of responses falling into the DAC categories. To the right we can see those box plots representing the distribution of those sampled intercepts for each study. We can see decent variability in these distributions between studies.
+
+```{r, echo = F}
+#| fig-width: 4
+#| fig-height: 2.5
+#| fig-align: center
+#| out-width: 66.66%
+
+readRDS(here::here("Figures", "Metaanalysis", "studylvl_plt.rds"))
+```
+
+Next step is to decide how to handle these high .5 studies and to add predictors to the model! Looking forward to hearing what predictors would be best to include in this analysis. Also, if there are other ways of analyzing and presenting these results that would be helpful, please let me know!
+
+#### Predictors
+
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+#| fig-align: center
+#| out-width: 66.66%
+
+readRDS(here::here("Figures", "Metaanalysis", "predictor_plt.rds"))
+```
+
