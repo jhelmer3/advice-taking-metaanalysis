@@ -4,11 +4,10 @@
 .Ruserdata
 
 /.quarto/
-Models/*.rds
-Models/tri-hurdle_metaanalysis/*.rds
-Models/tri-hurdle_metaanalysis/*.qs
-Models/thomas/*.rds
-Models/thomas/*.qs
-Figures/**/*.rds
+models/*.rds
+models/tri-hurdle_metaanalysis/*.rds
+models/tri-hurdle_metaanalysis/*.qs
+models/thomas/*.rds
+models/thomas/*.qs
+figures/**/*.rds
 
-**/*.quarto_ipynb
