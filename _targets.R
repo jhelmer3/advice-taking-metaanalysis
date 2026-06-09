@@ -4,14 +4,16 @@ library(tarchetypes)
 library(crew)
 
 tar_option_set(
-  controller = crew_controller_local(workers = 4),
+  controller = crew_controller_local(workers = 2),
   packages = c("tidyverse", "bayesplot", "cmdstanr", "patchwork", "posterior"),
-  format = "qs"
+  format = "qs"#,
+  #storage = "worker",
+  #retrieval = "worker"
 )
 
 tar_source()
 
-folder_name <- "Tri-Hurdle Metaanalysis"
+folder_name <- "tri-hurdle_metaanalysis"
 file_prefix <- "tri-m_more-pred"
 
 # End this file with a list of target objects.
@@ -25,7 +27,7 @@ list(
                         paste0(file_prefix, "_dat_2026-04-15.rds")),
              format = "file"),
   tar_target(model_file,
-             here::here("Models", folder_name,
+             here::here("models", folder_name,
                         paste0(file_prefix, "_model.qs")),
              format = "file"),
   tar_target(testdat, readRDS(testdat_file)),
@@ -50,7 +52,7 @@ list(
              pattern = map(predictors),
              iteration = "list"),
   tar_quarto(report, 
-             path = paste0("Reports/", file_prefix, "_report.qmd"),
+             path = paste0("reports/", file_prefix, "_report.qmd"),
              quiet = F)
 )
 

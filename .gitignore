@@ -5,9 +5,10 @@
 
 /.quarto/
 Models/*.rds
-Models/*.qs
-Models/Thomas/*.rds
-Models/Thomas/*.qs
+Models/tri-hurdle_metaanalysis/*.rds
+Models/tri-hurdle_metaanalysis/*.qs
+Models/thomas/*.rds
+Models/thomas/*.qs
 Figures/**/*.rds
 
 **/*.quarto_ipynb
