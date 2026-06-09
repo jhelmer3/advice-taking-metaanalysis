@@ -1,8 +1,6 @@
 
 plt_ppc <- function(dat, draws) {
   y <- dat$woa_winsor_trim
-  # shortening y_rep just to match while data is misaligned
-  # change when doing for real
   y_rep <- draws |> select(matches("y_rep")) |> head(50) |>
     as.matrix()
   

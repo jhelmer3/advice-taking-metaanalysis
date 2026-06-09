@@ -18,6 +18,9 @@ file_prefix <- "tri-m_more-pred"
 
 # End this file with a list of target objects.
 list(
+  tar_target(full_dat_file,
+             here::here("..", "woa_datasets.csv"),
+             format = "file"),
   tar_target(testdat_file,
              here::here("..", "Data Clean", folder_name,
                         paste0(file_prefix, "_testdat.rds")),
@@ -30,6 +33,9 @@ list(
              here::here("models", folder_name,
                         paste0(file_prefix, "_model.qs")),
              format = "file"),
+  tar_target(full_dat, read.csv(full_dat_file)),
+  tar_target(cleaned_dat, clean_dat(full_dat)),
+  tar_target(study_counts, get_study_counts(full_dat, cleaned_dat)),
   tar_target(testdat, readRDS(testdat_file)),
   tar_target(predictors, names(testdat) |> 
                purrr::discard(\(pred) stringr::str_detect(pred, "_by_"))),
@@ -39,13 +45,15 @@ list(
   tar_target(draws_array, get_draws_array(model)),
   tar_target(rhats, get_rhats(draws)),
   tar_target(tracerank_plts, plt_n_tracerank(draws_array, rhats, 9)),
+  tar_target(trace_plts, plt_n_trace(draws_array, rhats, 9)),
   tar_target(ppc_plt, plt_ppc(dat, draws)),
+  tar_target(ppc_plt_g, plt_ppc_g(dat, draws)),
   tar_target(personlvl_dat, get_personlvl_dat(draws)),
   tar_target(itemlvl_dat, get_itemlvl_dat(draws)),
   tar_target(studylvl_dat, get_studylvl_dat(draws)),
   tar_target(itemlvl_plt, plt_intercepts(itemlvl_dat)),
   tar_target(personlvl_plt, plt_intercepts(personlvl_dat)),
-  tar_target(studylvl_plt, plt_intercepts(studylvl_dat, plt_points = T)),
+  tar_target(studylvl_plt, plt_intercepts(studylvl_dat)),
   tar_target(predtest_dat, make_predtest_dat(draws, testdat)),
   tar_target(patched_pred_plts,
              patch_pred_plts(predtest_dat, predictors),
@@ -53,6 +61,9 @@ list(
              iteration = "list"),
   tar_quarto(report, 
              path = paste0("reports/", file_prefix, "_report.qmd"),
+             quiet = F),
+  tar_quarto(presentation_m3, 
+             path = "presentations/M3_2026.qmd",
              quiet = F)
 )
 

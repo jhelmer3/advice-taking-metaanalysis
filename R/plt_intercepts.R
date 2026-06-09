@@ -2,16 +2,17 @@
 plt_intercepts <- function(lvl_dat, plt_points = F) {
   lvl_id <- lvl_dat |> select(ends_with("_id")) |> names()
   
-  lvl_dat |>
+  lvl_dat_summarized <- lvl_dat |>
     summarize(.by = c(all_of(lvl_id), Parameter),
               mean_prob = mean(prob),
               lower_prob = quantile(prob, (1 - .89) / 2),
-              upper_prob = quantile(prob, .89 + (1 - .89) / 2)) |>
+              upper_prob = quantile(prob, .89 + (1 - .89) / 2))
+  
+  lvl_dat_summarized |>
     ggplot(aes(x = Parameter, y = mean_prob, group = .data[[lvl_id]], color = Parameter, fill = Parameter)) +
     geom_violin(aes(x = Parameter, y = mean_prob, fill = Parameter),
                 inherit.aes = F,
-                alpha = 0.6,
-                color = NA) +
+                alpha = 0.6) +
     {if (plt_points) geom_jitter(alpha = 0.4, shape = 16, height = 0, width = .15)
       else NULL} +
     coord_cartesian(ylim = 0:1, clip = "off") +

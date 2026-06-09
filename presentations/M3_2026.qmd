@@ -1,0 +1,522 @@
+---
+title: "When and Why Advice-Taking Strategies Differ:"
+subtitle: "A Dual-Hurdle-Based Meta-Analysis"
+format: 
+  revealjs:
+    css: styles.css
+    show-slide-number: all
+width: 1200
+author: "Jessica Helmer | M3 | 2026-06-XX"
+html-table-processing: none
+self-contained: true
+---
+
+## Advice-Taking
+
+```{r}
+#| include: false
+library(tidyverse)
+library(targets)
+library(gt)
+library(patchwork)
+
+tar_load(c(study_counts, dat, 
+           ppc_plt, ppc_plt_g, studylvl_plt,
+           patched_pred_plts), 
+         store = here::here("_targets"))
+# 
+# dat <- readRDS(here::here("..", "Data Clean", "trihurdle-metaanalysis-more-predictors_dat-small_2026-03.15.rds"))
+# study_names <- readRDS(here::here("..", "Data Clean", "studynames.rds"))
+# condition_names <- readRDS(here::here("..", "Data Clean", "condition-names_more-predictors.rds"))
+# data_study_counts <- readRDS(here::here("..", "Data Clean", "data_study_counts.rds"))
+
+main_color <- "steelblue"
+golden_ratio <- (1 + sqrt(5)) / 2
+
+set_theme(theme_classic(base_size = 24))
+theme_update(aspect.ratio = golden_ratio ^ -1,
+             axis.line.y = element_blank(),
+             axis.ticks.y = element_blank(),
+             axis.text.x = element_text(size = 30))
+
+# study.level_predictors <- str_split(condition_names[1], regex("\\.[lmh]{1}_")) |> 
+#   map(~ str_split_i(.x, "\\.", 1)) |>
+#   pluck(1) %>%
+#   tail(5)
+```
+
+Studies on advice taking often use a Judge Advisor System setup
+
+<div class="subpoint">○ Judge makes initial judgement</div>
+
+<div class="subpoint">○ Judge receives advice</div>
+
+<div class="subpoint">○ Judge makes final judgement</div>
+
+Outcome metric commonly "Weight of Advice" (WOA)
+
+<!-- Outcome metric of interest is how much someone changed their prediction relative to the advice -->
+
+<br>
+
+:::: {.columns}
+::: {.column width="50%"}
+$$ WOA = \frac{\text{initial} - \text{final}}{\text{initial} - \text{advice}} $$
+:::
+
+::: {.column width="50%"}
+```{r}
+#| layout-align: center
+#| layout-valign: center
+tibble(woa = c("$WOA = 0$", "$WOA = 1$", "$0 < WOA < 1$"),
+        res = c("Decline", "Adopt", "Compromise")) |>
+  gt() |>
+  fmt_markdown() |>
+  tab_options(column_labels.hidden = T) |>
+  opt_table_font(size = 30) |>
+  opt_horizontal_padding(3)
+```
+:::
+::::
+
+
+## Weight of Advice
+
+WOA continuous metric, but often empirically see concentrations of values at 0 and 1
+
+```{r}
+#| fig-align: center
+#| fig-height: 4
+dat |>
+  filter(study %in% c(1, 4, 11)) |>
+  mutate(study = as.character(study)) |>
+  # left_join(study_names, by = "study") |>
+  mutate(studyname = str_replace_all(studyname, "_", " ")) |>
+  ggplot(aes(x = woa_winsor, y = after_stat(density))) +
+  geom_histogram(color = NA, fill = main_color, binwidth = 0.08) +
+  scale_x_continuous(breaks = c(0, 0.5, 1), labels = c("0", ".5", "1")) +
+  scale_y_continuous(limits = c(0, 6.7), breaks = c(0, 6.7), labels = NULL) +
+  guides(x = guide_axis(cap = "both")) +
+  labs(y = NULL, x = "WOA") +
+  facet_wrap(~ studyname, scales = "free_y") +
+  theme(panel.spacing = unit(40, "pt"),
+        axis.text.x = element_text(size = 20),
+        plot.margin = unit(c(-10, 0, -10, 0), "pt"))
+```
+
+Typically are modeled with standard linear regression procedures
+
+<div class="subpoint">○ Assume normally distributed residuals!</div>
+
+::: footer
+(Himmelstein, 2022)
+:::
+
+
+## Dual-Hurdle Model
+
+Separates outcome into two phases:
+
+:::: {.columns}
+::: {.column width="50%"}
+**Discrete**
+
+::: {style="font-size:90%"}
+Decline, adopt, or compromise?
+
+Categorical logit: estimates probability of each choice
+:::
+
+```{r}
+tibble(choice = factor(c("Decline", "Compromise", "Adopt"), 
+                       levels = c("Decline", "Compromise", "Adopt"), ordered = T),
+       p = c(0.45, 0.25, 0.30)) |>
+  ggplot(aes(x = choice, y = p)) +
+  geom_col(fill = main_color) +
+  scale_y_continuous(NULL, limits = c(0, .46), breaks = NULL) +
+  guides(x = guide_axis(NULL, cap = "both"))
+```
+:::
+
+::: {.column width="50%"}
+**Continuous**
+
+::: {style="font-size:90%"}
+If compromise, how much?
+
+Beta distribution: estimates continuous WOA between 0 and 1
+:::
+
+```{r}
+tibble(woa = rbeta(10000, 1.5, 3)) |>
+  ggplot(aes(x = woa)) +
+  geom_density(fill = main_color, color = NA, adjust = 3) +
+  scale_y_continuous(NULL, limits = c(0, 1.8), breaks = NULL) +
+  scale_x_continuous(limits = c(0, 1), breaks = c(0, .5, 1), labels = c("0", ".5", "1")) +
+  guides(x = guide_axis(NULL, cap = "both")) 
+```
+:::
+::::
+
+::: footer
+(Himmelstein, 2022)
+:::
+
+
+## Dual-Hurdle Model
+
+:::: {.columns}
+::: {.column width="55%"}
+Makes WOA distributions like...
+
+```{r}
+#| fig-height: 8
+d <- rbind(tibble(pc1 = .25,
+        pc2 = .45,
+        pc3 = .30,
+        a = 1.5,
+        b = 3) |>
+   uncount(1000) |>
+   mutate(woa = pmap_dbl(list(pc1, pc2, pc3, a, b), \(pc1, pc2, pc3, a, b) {
+     data.frame(res = rmultinom(1, 1, c(pc1, pc2, pc3)),
+                woa = c(rbeta(1, a, b), 0, 1)) |>
+       filter(res == 1) |>
+       pull(woa)}),
+     version = 1),
+   tibble(pc1 = .4,
+        pc2 = .5,
+        pc3 = .1,
+        a = 2,
+        b = 4) |>
+   uncount(1000) |>
+   mutate(woa = pmap_dbl(list(pc1, pc2, pc3, a, b), \(pc1, pc2, pc3, a, b) {
+     data.frame(res = rmultinom(1, 1, c(pc1, pc2, pc3)),
+                woa = c(rbeta(1, a, b), 0, 1)) |>
+       filter(res == 1) |>
+       pull(woa)}),
+     version = 2),
+   tibble(pc1 = .7,
+        pc2 = .15,
+        pc3 = .15,
+        a = 3,
+        b = 4) |>
+   uncount(1000) |>
+   mutate(woa = pmap_dbl(list(pc1, pc2, pc3, a, b), \(pc1, pc2, pc3, a, b) {
+     data.frame(res = rmultinom(1, 1, c(pc1, pc2, pc3)),
+                woa = c(rbeta(1, a, b), 0, 1)) |>
+       filter(res == 1) |>
+       pull(woa)}),
+     version = 3),
+   tibble(pc1 = .2,
+        pc2 = .2,
+        pc3 = .6,
+        a = 5,
+        b = 6) |>
+   uncount(1000) |>
+   mutate(woa = pmap_dbl(list(pc1, pc2, pc3, a, b), \(pc1, pc2, pc3, a, b) {
+     data.frame(res = rmultinom(1, 1, c(pc1, pc2, pc3)),
+                woa = c(rbeta(1, a, b), 0, 1)) |>
+       filter(res == 1) |>
+       pull(woa)}),
+     version = 4))
+
+d |>
+  ggplot(aes(x = woa)) +
+  geom_density(fill = main_color, color = NA, adjust = 1.1) +
+  scale_y_continuous(NULL, breaks = NULL) +
+  scale_x_continuous(limits = c(0, 1), breaks = c(0, .5, 1),
+                     labels = c("0", ".5", "1")) +
+  facet_wrap(~ version, ncol = 2, scales = "free_y", axes = "all_x") + 
+  guides(x = guide_axis("WOA", cap = "both")) +
+  theme(axis.line.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(size = 25),
+        plot.margin = unit(rep(-1, 4), "pt"),
+        strip.background = element_blank(),
+        strip.text.x = element_blank())
+```
+:::
+
+::: {.column width="45%"}
+Can examine effects of predictors for both the categorical and continuous pieces
+
+Captures variation at the item- and person-level
+
+Present study: extend dual-hurdle model to meta-analytic context
+
+<div class="subpoint">○ Account for study-level variation</div>
+:::
+::::
+
+::: footer
+(Himmelstein, 2022)
+:::
+
+
+## Present Study
+
+Used data collected for an advice-taking metaanalysis on gender effects (Kausel et al., 2024)
+
+<div class="subpoint">○ Full dataset included `r study_counts |> filter(version == "full") |> pull(studies)` studies and `r study_counts |> filter(version == "full") |> pull(observations) |> format(big.mark = ",")` observations.</div>
+
+Removed cases that had missing data for WOA or any of the predictors
+
+<div class="subpoint">○ Remaining data had `r study_counts |> filter(version == "no missing") |> pull(studies)` studies: `r study_counts |> filter(version == "no missing") |> pull(observations) |> format(big.mark = ",")`.</div>
+
+```{r}
+tibble("Trial-Level" = list(list("advice distance")),
+       "Person-Level" = list(list("age", "gender")),
+       "Study-Level" = list(list("student population", "almanac item", "future item", "expert advisor", "incentive"))) |>
+  mutate(across(everything(), ~ map_chr(.x, ~ paste(.x, collapse = "<br>○ ")) |>
+                  paste0("○ ", ... = _) |> str_to_title())) |>
+  gt() |>
+  fmt_markdown() |>
+  tab_style(cell_text(weight = "bold", align = "center"),
+             cells_column_labels()) |>
+  tab_style(cell_text(v_align = "top"),
+            cells_body()) |>
+  tab_header("Predictors") |>
+  opt_table_font(size = 22) |>
+  opt_horizontal_padding(1.5)
+```
+
+::: footer
+(Kausel et al., 2024)
+:::
+
+
+## Dual-Hurdle Model
+
+Distribution of WOA values as per the **data** and the [model predictions]{style="color:`r main_color`"}
+
+```{r}
+#| fig-align: center
+#| message: false
+p <- readRDS(here::here("figures", "metaanalysis", "ppc_plt.rds")) +
+  theme_classic(base_size = 24) +
+  scale_color_manual(values = c("yrep" = main_color, "y" = "black")) +
+  scale_y_continuous(NULL, breaks = NULL)  +
+  scale_x_continuous(limits = c(0, 1), breaks = c(0, .5, 1),
+                     labels = c("0", ".5", "1")) + 
+  guides(x = guide_axis("WOA", cap = "both")) +
+  theme(axis.line.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(size = 25),
+        plot.margin = unit(rep(-1, 4), "pt"),
+        legend.position = "none",
+        aspect.ratio = golden_ratio ^ -1)
+
+p@layers$stat_density$aes_params$linewidth <- p@layers$stat_density$aes_params$linewidth * 2.5
+p@layers$stat_density...2$aes_params$linewidth <- p@layers$stat_density...2$aes_params$linewidth * 2
+
+p
+```
+
+
+## Dual-Hurdle Model
+
+Distribution of WOA values as per the **data** and the [model predictions]{style="color:`r main_color`"}
+
+```{r}
+#| fig-align: center
+#| message: false
+p +
+  annotate("text", label = "Surplus of WOA values at exactly WOA = .5!" |> str_wrap(20),
+           x = 0.625, y = 2.6, hjust = 0, size = 7) +
+  annotate(geom = "curve", x = 0.61, y = 2.6, xend = 0.5, yend = 1.3, 
+    curvature = .4, arrow = arrow(length = unit(2, "mm")))
+```
+
+
+
+## Tri-Hurdle Model
+
+Added a categorical choice: Decline, Adopt, **Midpoint**, Compromise
+
+```{r}
+#| fig-align: center
+#| message: false
+# p <- readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis", "ppc_plt.rds")) +
+#   theme_classic(base_size = 24) +
+#   scale_color_manual(values = c("yrep" = main_color, "y" = "black")) +
+#   scale_y_continuous(NULL, breaks = NULL)  +
+#   scale_x_continuous(limits = c(0, 1), breaks = c(0, .5, 1),
+#                      labels = c("0", ".5", "1")) + 
+#   guides(x = guide_axis("WOA", cap = "both")) +
+#   theme(axis.line.y = element_blank(),
+#         axis.ticks.y = element_blank(),
+#         axis.text.x = element_text(size = 25),
+#         plot.margin = unit(rep(-1, 4), "pt"),
+#         legend.position = "none",
+#         aspect.ratio = golden_ratio ^ -1)
+# 
+# p@layers$stat_density$aes_params$linewidth <- p@layers$stat_density$aes_params$linewidth * 2.5
+# p@layers$stat_density...2$aes_params$linewidth <- p@layers$stat_density...2$aes_params$linewidth * 2
+# 
+# p
+
+ppc_plt
+```
+
+
+## Tri-Hurdle Model
+
+```{r}
+#| fig-align: center
+#| message: false
+# p <- readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis", "ppc_plt_g.rds")) +
+#   theme_classic() +
+#   scale_color_manual(values = c("yrep" = main_color, "y" = "black")) +
+#   scale_y_continuous(NULL, breaks = NULL) +
+#   scale_x_continuous(NULL, limits = c(0, 1), breaks = c(0, .5, 1),
+#                      labels = NULL) +
+#   guides(x = guide_axis(cap = "both")) +
+#   theme(axis.line.y = element_line(color = NA),
+#         axis.ticks.y = element_blank(),
+#         #axis.text.x = element_text(size = 4),
+#         # strip.text = element_text(size = 6),
+#         # strip.background = element_rect(color = NA),
+#         strip.text = element_blank(),
+#         strip.background = element_blank(),
+#         #aspect.ratio = golden_ratio ^ -1,
+#         legend.position = "none")
+# 
+# # p@layers$stat_density$aes_params$linewidth <- p@layers$stat_density$aes_params$linewidth * 2.5
+# p@layers$stat_density...2$aes_params$linewidth <- p@layers$stat_density...2$aes_params$linewidth * 0.7
+# 
+# p
+
+ppc_plt_g
+```
+
+
+## Decline, Adopt, Midpoint, Compromise
+
+```{r}
+#| fig-height: 3
+#| fig-width: 4
+#| fig-align: center
+
+# readRDS(here::here("..", "Data Clean", "trihurdle-metaanalysis_stdylvl_dat.rds")) |>
+#   ggplot(aes(x = Parameter, y = round(P, 2), fill = Parameter, color = Parameter)) + 
+#   geom_violin(color = NA, alpha = .6) + 
+#   geom_jitter(shape = 16, alpha = .8, width = .2) +
+#   theme_minimal() +
+#   xlab("Intercept") +
+#   ylab("Probability") +
+#   guides(fill = "none", color = "none") +
+#   scale_color_manual(NULL, values = c("#003f5c", "#7a5195", "#ef5675", "#ffa600")) +
+#   scale_fill_manual(NULL, values = c("#003f5c", "#7a5195", "#ef5675", "#ffa600")) +
+#   coord_cartesian(ylim = c(0, 1), expand = 0, clip = "off") +
+#   theme_minimal() +
+#   theme(panel.grid.minor = element_blank(),
+#         panel.grid.major.x = element_blank(),
+#         legend.position = "none",
+#         plot.margin = unit(c(30, 10, 30, 10), "pt"))
+
+studylvl_plt
+```
+
+
+## Distance
+
+```{r}
+#| fig-width: 6.5
+#| fig-align: center
+patched_pred_plts[[1]]
+```
+
+
+## Age and Gender
+
+```{r}
+#| fig-width: 6.5
+#| fig-align: center
+#| layout-ncol: 2
+patched_pred_plts[[2]]
+
+patched_pred_plts[[3]]
+```
+
+
+## Study-Level Predictors
+
+```{r}
+#| fig-align: center
+#| fig-width: 13
+#| layout-ncol: 3
+
+patched_pred_plts[[4]]
+patched_pred_plts[[5]]
+patched_pred_plts[[6]]
+```
+
+
+## Study-Level Predictors
+
+```{r}
+#| fig-align: center
+#| fig-width: 13
+#| out-width: 66%
+#| layout-ncol: 2
+patched_pred_plts[[7]]
+patched_pred_plts[[8]]
+```
+
+
+## Discussion
+
+Midpoint averaging common, could be relevant to include in model
+
+<div class="subpoint">○ Varies by study</div>
+
+Differences between student and non-student populations
+
+<div class="subpoint">○ Declining a lot, but updating more when compromise</div>
+
+Differences between incentivised and non-incentivised studies
+
+
+## References
+
+Kausel, E.E., Ventura, S., Reyes, V. (November 2024). [Conference presentation]. Gender Differences in Advice Taking: A Meta-Analytic Path Model. Society of Judgement and Decision Making, New York, NY.
+
+Himmelstein, M. (2022). Decline, adopt or compromise? A dual hurdle model for advice utilization. Journal of Mathematical Psychology, 110, 102695. https://doi.org/10.1016/j.jmp.2022.102695
+
+
+# Thank You!
+
+Contact: jhelmer3@gatech.edu
+
+```{r}
+plot(qrcode::qr_code("https://jhelmer3.github.io/advice-taking-metaanalysis/Presentations/TEAP_2026.html#/title-slide"))
+```
+
+
+
+```{r}
+#| fig-align: center
+#| fig-height: 7
+#| fig-width: 13
+#| eval: false
+
+top_plts <- study.level_predictors |>
+  head(3) |>
+  map(~ (readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors",
+                           paste0(.x, "_plt_small.rds"))) & 
+            theme(geom = element_geom(ink = "#597993", paper = "#a2b9cd"))))
+
+bottom_plts <- study.level_predictors |>
+  tail(2) |>
+  map(~ (readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis More Predictors",
+                           paste0(.x, "_plt_small.rds"))) & 
+            theme(geom = element_geom(ink = "#597993", paper = "#a2b9cd"))))
+
+wrap_plots(top_plts, ncol = 3) / 
+  wrap_plots(plot_spacer(), wrap_plots(bottom_plts, ncol = 2), plot_spacer(),
+             widths = c(0.25, 1, 0.25))
+```
+
+
+
+
