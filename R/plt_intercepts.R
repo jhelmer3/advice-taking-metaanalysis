@@ -10,7 +10,7 @@ plt_intercepts <- function(lvl_dat, plt_points = F) {
   
   lvl_dat_summarized |>
     ggplot(aes(x = Parameter, y = mean_prob, group = .data[[lvl_id]], color = Parameter, fill = Parameter)) +
-    geom_violin(aes(x = Parameter, y = mean_prob, fill = Parameter),
+    geom_violin(aes(x = Parameter, y = mean_prob, fill = Parameter, color = Parameter),
                 inherit.aes = F,
                 alpha = 0.6) +
     {if (plt_points) geom_jitter(alpha = 0.4, shape = 16, height = 0, width = .15)

@@ -30,6 +30,10 @@ full_dat_file|stem|e52b492acf7dd046|90c50125ab0ff4d9|2c530c1562a7fbd1|479552252|
 full_dat|stem|d47f0e0586f21512|7259720891c9a512|28634371c9924547|-1079922764||t20613.8641481564s|s6738065b|6738065|qs|local|vector|||4.237||
 cleaned_dat|stem|67493c5eb0fb989e|264b83136967f5d5|46cf8afad73c1b48|1818601957||t20613.8646397748s|s3095707b|3095707|qs|local|vector|||0.651||
 study_counts|stem|328554c10ce8b5fb|ef21dd2c005a0a79|80e6a88589c32ec5|-1180098998||t20613.8688049121s|s214b|214|qs|local|vector|||0.221||
+studylvl_plt|stem|51b6dce00fab1dd3|d43674c40cf92c1c|36925a253b2187b4|-1008477646||t20614.6437605276s|s18019263b|18019263|qs|local|vector|||0.531||
+itemlvl_plt|stem|bba7898f213bfaeb|55211d57cb8093cf|008c3b8e5e47c842|-1470667151||t20614.6439924213s|s453993800b|453993800|qs|local|vector|||5.644||
+personlvl_plt|stem|0884704aa4cce39a|1f3e2f6cf757878c|922b5de9c746bdde|51818855||t20614.6465431309s|s4979972376b|4979972376|qs|local|vector|||82.779||
+report|stem|a86792b58335f0c3|e0877b8681668312|a43f87ab550359cd|787668912|docs/reports/tri-m_more-pred_report.html*reports/tri-m_more-pred_report.qmd*styles.css|t20614.6501131719s|s16871824b|16871824|file|local|vector|||223.33||
 get_itemlvl_dat|function|1d6dddb72c57db3d
 get_draws|function|9c324dfea51da326
 get_personlvl_dat|function|62d048606145ebe6
@@ -37,7 +41,7 @@ fmt_plt_dat|function|0d7914318fbaf71b
 plt_prob_by_choice|function|95ac053afe2e40e2
 plt_woa_dist|function|45625c27e195f2c4
 folder_name|object|3f4a6f7574fd1adb
-plt_intercepts|function|f90dc3c20aa9060f
+plt_intercepts|function|10786c88a1bc0101
 plt_n_tracerank|function|f48ab0874449ebed
 get_studylvl_dat|function|1e25b4814ab9b8cc
 get_rhats|function|04856c7c6155abee
@@ -50,8 +54,4 @@ plt_n_trace|function|a04933a4672195eb
 get_draws_array|function|758bf5aeb9cb3583
 make_predtest_dat|function|267b81cf47b7ffeb
 patch_pred_plts|function|3ec8bae27098c02b
-studylvl_plt|stem|e8807b8a107fda5d|d43674c40cf92c1c|a37fb1794d693329|-1008477646||t20613.8751383799s|s18019085b|18019085|qs|local|vector|||0.522||
-presentation_m3|stem|7f486c76deece2d1|6763c3ad122ec957|26161fd6cb593291|-346570841|docs/presentations/M3_2026.html*presentations/M3_2026.qmd*presentations/styles.css|t20613.8762923771s|s5348005b|5348005|file|local|vector|||87.728||
-itemlvl_plt|stem|4d42f10a8da1fad7|55211d57cb8093cf|d87aee072bef8e29|-1470667151||t20613.8765171356s|s453994955b|453994955|qs|local|vector|||6.116||
-personlvl_plt|stem|a08b709ffc12509d|1f3e2f6cf757878c|9e336ed5ae20f167|51818855||t20613.8776320775s|s4979974377b|4979974377|qs|local|vector|||76.369||
-report|stem|57a74da6619d3804|e0877b8681668312|91336e4a7ed4449e|787668912|docs/reports/tri-m_more-pred_report.html*reports/tri-m_more-pred_report.qmd*styles.css|t20613.8811445002s|s16866120b|16866120|file|local|vector|||219.783||
+presentation_m3|stem|746c75c277b007f8|6763c3ad122ec957|4ac8e98c2e0a8a12|-346570841|docs/presentations/M3_2026.html*presentations/M3_2026.qmd*presentations/styles.css|t20614.6563945064s|s5107779b|5107779|file|local|vector|||92.407||

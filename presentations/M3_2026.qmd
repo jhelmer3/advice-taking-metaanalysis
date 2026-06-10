@@ -355,7 +355,24 @@ Added a categorical choice: Decline, Adopt, **Midpoint**, Compromise
 # 
 # p
 
-ppc_plt
+p <- ppc_plt +
+  theme_classic(base_size = 24) +
+  scale_color_manual(values = c("yrep" = main_color, "y" = "black")) +
+  scale_y_continuous(NULL, breaks = NULL)  +
+  scale_x_continuous(limits = c(0, 1), breaks = c(0, .5, 1),
+                     labels = c("0", ".5", "1")) + 
+  guides(x = guide_axis("WOA", cap = "both")) +
+  theme(axis.line.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(size = 25),
+        plot.margin = unit(rep(-1, 4), "pt"),
+        legend.position = "none",
+        aspect.ratio = golden_ratio ^ -1)
+
+p@layers$stat_density$aes_params$linewidth <- p@layers$stat_density$aes_params$linewidth * 2.5
+p@layers$stat_density...2$aes_params$linewidth <- p@layers$stat_density...2$aes_params$linewidth * 2
+
+p
 ```
 
 
@@ -365,28 +382,47 @@ ppc_plt
 #| fig-align: center
 #| message: false
 # p <- readRDS(here::here("Figures", "Tri-Hurdle Metaanalysis", "ppc_plt_g.rds")) +
-#   theme_classic() +
-#   scale_color_manual(values = c("yrep" = main_color, "y" = "black")) +
-#   scale_y_continuous(NULL, breaks = NULL) +
-#   scale_x_continuous(NULL, limits = c(0, 1), breaks = c(0, .5, 1),
-#                      labels = NULL) +
-#   guides(x = guide_axis(cap = "both")) +
-#   theme(axis.line.y = element_line(color = NA),
-#         axis.ticks.y = element_blank(),
-#         #axis.text.x = element_text(size = 4),
-#         # strip.text = element_text(size = 6),
-#         # strip.background = element_rect(color = NA),
-#         strip.text = element_blank(),
-#         strip.background = element_blank(),
-#         #aspect.ratio = golden_ratio ^ -1,
-#         legend.position = "none")
+#  theme_classic() +
+#  scale_color_manual(values = c("yrep" = main_color, "y" = "black")) +
+#  scale_y_continuous(NULL, breaks = NULL) +
+#  scale_x_continuous(NULL, limits = c(0, 1), breaks = c(0, .5, 1),
+#                     labels = NULL) +
+#  guides(x = guide_axis(cap = "both")) +
+#  theme(axis.line.y = element_line(color = NA),
+#        axis.ticks.y = element_blank(),
+#        #axis.text.x = element_text(size = 4),
+#        # strip.text = element_text(size = 6),
+#        # strip.background = element_rect(color = NA),
+#        strip.text = element_blank(),
+#        strip.background = element_blank(),
+#        #aspect.ratio = golden_ratio ^ -1,
+#        legend.position = "none")
 # 
-# # p@layers$stat_density$aes_params$linewidth <- p@layers$stat_density$aes_params$linewidth * 2.5
+# p@layers$stat_density$aes_params$linewidth <- p@layers$stat_density$aes_params$linewidth * 2.5
 # p@layers$stat_density...2$aes_params$linewidth <- p@layers$stat_density...2$aes_params$linewidth * 0.7
 # 
 # p
 
-ppc_plt_g
+p <- ppc_plt_g +
+ scale_color_manual(values = c("yrep" = main_color, "y" = "black")) +
+ scale_y_continuous(NULL, breaks = NULL) +
+ scale_x_continuous(NULL, limits = c(0, 1), breaks = c(0, .5, 1),
+                    labels = NULL) +
+ guides(x = guide_axis(cap = "both")) +
+ theme(axis.line.y = element_line(color = NA),
+       axis.ticks.y = element_blank(),
+       #axis.text.x = element_text(size = 4),
+       # strip.text = element_text(size = 6),
+       # strip.background = element_rect(color = NA),
+       strip.text = element_blank(),
+       strip.background = element_blank(),
+       #aspect.ratio = golden_ratio ^ -1,
+       legend.position = "none")
+
+p@layers$stat_density$aes_params$linewidth <- p@layers$stat_density$aes_params$linewidth * 2.5
+p@layers$stat_density...2$aes_params$linewidth <- p@layers$stat_density...2$aes_params$linewidth * 0.7
+
+p
 ```
 
 
@@ -434,7 +470,6 @@ patched_pred_plts[[1]]
 #| fig-align: center
 #| layout-ncol: 2
 patched_pred_plts[[2]]
-
 patched_pred_plts[[3]]
 ```
 
@@ -442,24 +477,28 @@ patched_pred_plts[[3]]
 ## Study-Level Predictors
 
 ```{r}
+#| fig-width: 6.5
 #| fig-align: center
-#| fig-width: 13
-#| layout-ncol: 3
-
+#| layout-ncol: 2
 patched_pred_plts[[4]]
 patched_pred_plts[[5]]
-patched_pred_plts[[6]]
 ```
-
 
 ## Study-Level Predictors
 
 ```{r}
+#| fig-width: 6.5
 #| fig-align: center
-#| fig-width: 13
-#| out-width: 66%
 #| layout-ncol: 2
+patched_pred_plts[[6]]
 patched_pred_plts[[7]]
+```
+
+## Study-Level Predictors
+
+```{r}
+#| fig-width: 6.5
+#| fig-align: center
 patched_pred_plts[[8]]
 ```
 

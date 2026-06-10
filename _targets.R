@@ -4,7 +4,7 @@ library(tarchetypes)
 library(crew)
 
 tar_option_set(
-  controller = crew_controller_local(workers = 2),
+  controller = crew_controller_local(workers = 4),
   packages = c("tidyverse", "bayesplot", "cmdstanr", "patchwork", "posterior"),
   format = "qs"#,
   #storage = "worker",
