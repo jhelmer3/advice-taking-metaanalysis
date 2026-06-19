@@ -116,7 +116,7 @@ ppc_plt_g
 ```
 
 
-### Person-Level Intercepts
+### Distributions of Intercepts
 
 ```{r}
 #| fig-width: 4

@@ -33,7 +33,6 @@ study_counts|stem|328554c10ce8b5fb|ef21dd2c005a0a79|80e6a88589c32ec5|-1180098998
 studylvl_plt|stem|51b6dce00fab1dd3|d43674c40cf92c1c|36925a253b2187b4|-1008477646||t20614.6437605276s|s18019263b|18019263|qs|local|vector|||0.531||
 itemlvl_plt|stem|bba7898f213bfaeb|55211d57cb8093cf|008c3b8e5e47c842|-1470667151||t20614.6439924213s|s453993800b|453993800|qs|local|vector|||5.644||
 personlvl_plt|stem|0884704aa4cce39a|1f3e2f6cf757878c|922b5de9c746bdde|51818855||t20614.6465431309s|s4979972376b|4979972376|qs|local|vector|||82.779||
-report|stem|a86792b58335f0c3|e0877b8681668312|a43f87ab550359cd|787668912|docs/reports/tri-m_more-pred_report.html*reports/tri-m_more-pred_report.qmd*styles.css|t20614.6501131719s|s16871824b|16871824|file|local|vector|||223.33||
 get_itemlvl_dat|function|1d6dddb72c57db3d
 get_draws|function|9c324dfea51da326
 get_personlvl_dat|function|62d048606145ebe6
@@ -54,4 +53,5 @@ plt_n_trace|function|a04933a4672195eb
 get_draws_array|function|758bf5aeb9cb3583
 make_predtest_dat|function|267b81cf47b7ffeb
 patch_pred_plts|function|3ec8bae27098c02b
-presentation_m3|stem|746c75c277b007f8|6763c3ad122ec957|4ac8e98c2e0a8a12|-346570841|docs/presentations/M3_2026.html*presentations/M3_2026.qmd*presentations/styles.css|t20614.6563945064s|s5107779b|5107779|file|local|vector|||92.407||
+presentation_m3|stem|746c75c277b007f8|6763c3ad122ec957|4ac8e98c2e0a8a12|-346570841|docs/presentations/M3_2026.html*presentations/M3_2026.qmd*presentations/styles.css|t20614.6662911034s|s5107779b|5107779|file|local|vector|||92.407||
+report|stem|7eb39f3b0d53a96f|e0877b8681668312|a43f87ab550359cd|787668912|docs/reports/tri-m_more-pred_report.html*reports/tri-m_more-pred_report.qmd*styles.css|t20623.5408061094s|s16872577b|16872577|file|local|vector|||229.022||

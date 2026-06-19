@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jessica Helmer">
-<meta name="dcterms.date" content="2026-06-09">
+<meta name="dcterms.date" content="2026-06-19">
 
 <title>Tri-Hurdle Metaanalysis Model – Advice-Taking Metaanalysis</title>
 <style>
@@ -3909,11 +3909,26 @@ height: 90%;
  <span class="menu-text">Reports</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reports">    
-        <li class="dropdown-header">Reports/metaanalysis_report.qmd</li>
-        <li class="dropdown-header">Reports/trihurdle_report.qmd</li>
-        <li class="dropdown-header">Reports/trihurdle-metaanalysis_report.qmd</li>
-        <li class="dropdown-header">Reports/tri-m_more-pred_report.qmd</li>
-        <li class="dropdown-header">Reports/thomas_trihurdle_report.qmd</li>
+        <li>
+    <a class="dropdown-item" href="../reports/metaanalysis_report.html">
+ <span class="dropdown-text">Metaanalysis Model</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../reports/trihurdle_report.html">
+ <span class="dropdown-text">Tri-Hurdle Model</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../reports/trihurdle-metaanalysis_report.html">
+ <span class="dropdown-text">Tri-Hurdle Metaanalysis Model</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../reports/tri-m_more-pred_report.html">
+ <span class="dropdown-text">Tri-Hurdle Metaanalysis Model</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../reports/thomas_trihurdle_report.html">
+ <span class="dropdown-text">Thomas Tri-Hurdle Model</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -3921,7 +3936,14 @@ height: 90%;
  <span class="menu-text">Presentations</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-presentations">    
-        <li class="dropdown-header">Presentations/TEAP_2026.qmd</li>
+        <li>
+    <a class="dropdown-item" href="../presentations/TEAP_2026.html">
+ <span class="dropdown-text">When and Why Advice-Taking Strategies Differ:</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../presentations/M3_2026.html">
+ <span class="dropdown-text">When and Why Advice-Taking Strategies Differ:</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -3944,7 +3966,7 @@ height: 90%;
   <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
   <ul class="collapse">
-  <li><a href="#person-level-intercepts" id="toc-person-level-intercepts" class="nav-link" data-scroll-target="#person-level-intercepts">Person-Level Intercepts</a></li>
+  <li><a href="#distributions-of-intercepts" id="toc-distributions-of-intercepts" class="nav-link" data-scroll-target="#distributions-of-intercepts">Distributions of Intercepts</a></li>
   <li><a href="#predictors" id="toc-predictors" class="nav-link" data-scroll-target="#predictors">Predictors</a></li>
   </ul></li>
   </ul>
@@ -3973,7 +3995,7 @@ height: 90%;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 9, 2026</p>
+      <p class="date">June 19, 2026</p>
     </div>
   </div>
   
@@ -4043,20 +4065,20 @@ height: 90%;
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">table.width =</span> <span class="fu">px</span>(<span class="dv">180</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div id="ppfjynijxl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ppfjynijxl table {
+<div id="qsphnrnmah" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qsphnrnmah table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#ppfjynijxl thead, #ppfjynijxl tbody, #ppfjynijxl tfoot, #ppfjynijxl tr, #ppfjynijxl td, #ppfjynijxl th {
+#qsphnrnmah thead, #qsphnrnmah tbody, #qsphnrnmah tfoot, #qsphnrnmah tr, #qsphnrnmah td, #qsphnrnmah th {
 border-style: none;
 }
-#ppfjynijxl p {
+#qsphnrnmah p {
 margin: 0;
 padding: 0;
 }
-#ppfjynijxl .gt_table {
+#qsphnrnmah .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -4081,11 +4103,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#ppfjynijxl .gt_caption {
+#qsphnrnmah .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#ppfjynijxl .gt_title {
+#qsphnrnmah .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -4096,7 +4118,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#ppfjynijxl .gt_subtitle {
+#qsphnrnmah .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -4107,7 +4129,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#ppfjynijxl .gt_heading {
+#qsphnrnmah .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -4118,12 +4140,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#ppfjynijxl .gt_bottom_border {
+#qsphnrnmah .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ppfjynijxl .gt_col_headings {
+#qsphnrnmah .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -4137,7 +4159,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#ppfjynijxl .gt_col_heading {
+#qsphnrnmah .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -4156,7 +4178,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#ppfjynijxl .gt_column_spanner_outer {
+#qsphnrnmah .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -4167,13 +4189,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#ppfjynijxl .gt_column_spanner_outer:first-child {
+#qsphnrnmah .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#ppfjynijxl .gt_column_spanner_outer:last-child {
+#qsphnrnmah .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#ppfjynijxl .gt_column_spanner {
+#qsphnrnmah .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -4184,10 +4206,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#ppfjynijxl .gt_spanner_row {
+#qsphnrnmah .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#ppfjynijxl .gt_group_heading {
+#qsphnrnmah .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4212,7 +4234,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#ppfjynijxl .gt_empty_group_heading {
+#qsphnrnmah .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -4226,13 +4248,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#ppfjynijxl .gt_from_md > :first-child {
+#qsphnrnmah .gt_from_md > :first-child {
 margin-top: 0;
 }
-#ppfjynijxl .gt_from_md > :last-child {
+#qsphnrnmah .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#ppfjynijxl .gt_row {
+#qsphnrnmah .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4250,7 +4272,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#ppfjynijxl .gt_stub {
+#qsphnrnmah .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -4262,7 +4284,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ppfjynijxl .gt_stub_row_group {
+#qsphnrnmah .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -4275,13 +4297,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#ppfjynijxl .gt_row_group_first td {
+#qsphnrnmah .gt_row_group_first td {
 border-top-width: 2px;
 }
-#ppfjynijxl .gt_row_group_first th {
+#qsphnrnmah .gt_row_group_first th {
 border-top-width: 2px;
 }
-#ppfjynijxl .gt_summary_row {
+#qsphnrnmah .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -4290,14 +4312,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ppfjynijxl .gt_first_summary_row {
+#qsphnrnmah .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#ppfjynijxl .gt_first_summary_row.thick {
+#qsphnrnmah .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#ppfjynijxl .gt_last_summary_row {
+#qsphnrnmah .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4306,7 +4328,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ppfjynijxl .gt_grand_summary_row {
+#qsphnrnmah .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -4315,7 +4337,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ppfjynijxl .gt_first_grand_summary_row {
+#qsphnrnmah .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4324,7 +4346,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#ppfjynijxl .gt_last_grand_summary_row_top {
+#qsphnrnmah .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -4333,10 +4355,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#ppfjynijxl .gt_striped {
+#qsphnrnmah .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#ppfjynijxl .gt_table_body {
+#qsphnrnmah .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -4344,7 +4366,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#ppfjynijxl .gt_footnotes {
+#qsphnrnmah .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -4357,7 +4379,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#ppfjynijxl .gt_footnote {
+#qsphnrnmah .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -4365,7 +4387,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ppfjynijxl .gt_sourcenotes {
+#qsphnrnmah .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -4378,64 +4400,64 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#ppfjynijxl .gt_sourcenote {
+#qsphnrnmah .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#ppfjynijxl .gt_left {
+#qsphnrnmah .gt_left {
 text-align: left;
 }
-#ppfjynijxl .gt_center {
+#qsphnrnmah .gt_center {
 text-align: center;
 }
-#ppfjynijxl .gt_right {
+#qsphnrnmah .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#ppfjynijxl .gt_font_normal {
+#qsphnrnmah .gt_font_normal {
 font-weight: normal;
 }
-#ppfjynijxl .gt_font_bold {
+#qsphnrnmah .gt_font_bold {
 font-weight: bold;
 }
-#ppfjynijxl .gt_font_italic {
+#qsphnrnmah .gt_font_italic {
 font-style: italic;
 }
-#ppfjynijxl .gt_super {
+#qsphnrnmah .gt_super {
 font-size: 65%;
 }
-#ppfjynijxl .gt_footnote_marks {
+#qsphnrnmah .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#ppfjynijxl .gt_asterisk {
+#qsphnrnmah .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#ppfjynijxl .gt_indent_1 {
+#qsphnrnmah .gt_indent_1 {
 text-indent: 5px;
 }
-#ppfjynijxl .gt_indent_2 {
+#qsphnrnmah .gt_indent_2 {
 text-indent: 10px;
 }
-#ppfjynijxl .gt_indent_3 {
+#qsphnrnmah .gt_indent_3 {
 text-indent: 15px;
 }
-#ppfjynijxl .gt_indent_4 {
+#qsphnrnmah .gt_indent_4 {
 text-indent: 20px;
 }
-#ppfjynijxl .gt_indent_5 {
+#qsphnrnmah .gt_indent_5 {
 text-indent: 25px;
 }
-#ppfjynijxl .katex-display {
+#qsphnrnmah .katex-display {
 display: inline-flex !important;
 margin-bottom: 0.75em !important;
 }
-#ppfjynijxl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#qsphnrnmah div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
 height: 0px !important;
 }
 </style>
@@ -4546,15 +4568,15 @@ lowest.</td>
 </div>
 </div>
 </section>
-<section id="person-level-intercepts" class="level3 page-columns page-full">
-<h3 class="anchored" data-anchor-id="person-level-intercepts">Person-Level Intercepts</h3>
+<section id="distributions-of-intercepts" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="distributions-of-intercepts">Distributions of Intercepts</h3>
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>personlvl_plt</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>itemlvl_plt</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>studylvl_plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell column-page quarto-layout-panel" data-layout-ncol="3" data-layout-align="center">
+<div class="cell column-page quarto-layout-panel" data-layout-align="center" data-layout-ncol="3">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -4624,7 +4646,7 @@ lowest.</td>
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">walk</span>(patched_pred_plts, print)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
