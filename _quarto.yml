@@ -14,13 +14,15 @@ website:
         menu:
           - reports/metaanalysis_report.qmd
           - reports/trihurdle_report.qmd 
-          - reports/trihurdle-metaanalysis_report.qmd
+          # - reports/trihurdle-metaanalysis_report.qmd
           - reports/tri-m_more-pred_report.qmd
           - reports/thomas_trihurdle_report.qmd
       - text: "Presentations"
         menu:
-          - presentations/TEAP_2026.qmd
-          - presentations/M3_2026.qmd
+          - text: "TEAP 2026"
+            href: presentations/TEAP_2026.qmd
+          - text: "M3 2026"
+            href: presentations/M3_2026.qmd
     tools:
       - icon: github
         href: https://github.com/jhelmer3/advice-taking-metaanalysis

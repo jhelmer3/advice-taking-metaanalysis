@@ -22,7 +22,7 @@ html-table-processing: none
 
 ::: panel-tabset
 #### Libraries
-```{r}
+```{r libraries}
 #| code-fold: show
 #| message: false
 library(tidyverse)
@@ -32,36 +32,21 @@ library(gt)
 ```
 
 #### Reading
-```{r}
+```{r reading}
 #| code-fold: show
 tar_load(c(dat, testdat, predictors, rhats, tracerank_plts, trace_plts,
-           ppc_plt, ppc_plt_g, personlvl_plt, itemlvl_plt, studylvl_plt,
-           patched_pred_plts), 
+           ppc_plt, ppc_plt_g, personlvl_plt, itemlvl_plt, studylvl_plt), 
          store = here::here("_targets"))
 ```
-
-#### Functions
-```{r}
-#| code-fold: show
-
-```
-
-#### Cleaning
-```{r}
-#| code-fold: show
-
-```
-
 :::
 
 ## Results
 
 #### Model Diagnostics
 
-
 :::: {.columns}
 ::: {.column width="33%"}
-```{r}
+```{r rhats}
 top_nine <- rhats |>
   head(9)
 
@@ -80,13 +65,13 @@ top_nine |>
 
 ::: panel-tabset
 ### Trace Plots
-```{r}
+```{r trace_plts}
 #| fig-width: 6
 #| fig-height: 6
 trace_plts
 ```
 ### Trace Rank Plots
-```{r}
+```{r tracerank_plts}
 #| fig-width: 6
 #| fig-height: 6
 tracerank_plts
@@ -97,7 +82,7 @@ tracerank_plts
 
 Displayed below is a plot of the distribution of WOA values as per the **data** and as per the [model]{style="color:#5179A9"} predictions. 
 
-```{r}
+```{r ppc_plt}
 #| fig-width: 4
 #| fig-height: 2.5
 #| fig-align: center
@@ -107,7 +92,7 @@ ppc_plt
 
 And the same distributions, but broken up by study.
 
-```{r}
+```{r ppc_plt_g}
 #| fig-width: 12
 #| fig-height: 10
 #| fig-align: center
@@ -118,7 +103,7 @@ ppc_plt_g
 
 ### Distributions of Intercepts
 
-```{r}
+```{r intercepts}
 #| fig-width: 4
 #| fig-height: 2.5
 #| fig-align: center
@@ -174,14 +159,16 @@ studylvl_plt
 
 #### Posterior Predictive Distributions of Predictors
 
-```{r}
+```{r patched_pred_plt_files}
 #| fig-width: 6
 #| fig-height: 5.5
 #| fig-align: center
 #| out-width: 66.66%
 #| layout-ncol: 2
-
-walk(patched_pred_plts, print)
+tar_read(patched_pred_plt_files, store = here::here("_targets")) |>
+  unlist() |>
+  normalizePath(winslash = "/") |>
+  knitr::include_graphics(error = F)
 ```
 
 

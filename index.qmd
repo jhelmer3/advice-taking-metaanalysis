@@ -22,7 +22,7 @@ One key initial finding from this metaanalysis is that some studies have a high 
 :::
 
 ::: {.column width="25%" .l-center-container}
-[Metaanalysis](/Reports/metaanalysis_report.qmd){.btn .btn-outline-primary .btn role="button"}
+[Metaanalysis](/reports/metaanalysis_report.qmd){.btn .btn-outline-primary .btn role="button"}
 :::
 ::::
 
@@ -37,7 +37,7 @@ With just one study that was high on 0.5s, we modified the original model to inc
 :::
 
 ::: {.column width="25%" .l-center-container}
-[Tri-Hurdle](/Reports/trihurdle_report.qmd){.btn .btn-outline-primary .btn role="button"}
+[Tri-Hurdle](/reports/trihurdle_report.qmd){.btn .btn-outline-primary .btn role="button"}
 :::
 ::::
 
@@ -52,7 +52,7 @@ With that model successfully estimated, we then merged the tri-hurdle and metaan
 :::
 
 ::: {.column width="25%" .l-center-container}
-[Tri-Hurdle Metaanalysis](/Reports/trihurdle-metaanalysis_report.qmd){.btn .btn-outline-primary .btn role="button"}
+[Tri-Hurdle Metaanalysis](/reports/trihurdle-metaanalysis_report.qmd){.btn .btn-outline-primary .btn role="button"}
 :::
 ::::
 
