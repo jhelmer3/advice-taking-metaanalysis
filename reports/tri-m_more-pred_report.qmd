@@ -35,7 +35,7 @@ library(gt)
 ```{r reading}
 #| code-fold: show
 tar_load(c(dat, testdat, predictors, rhats, tracerank_plts, trace_plts,
-           ppc_plt, ppc_plt_g, personlvl_plt, itemlvl_plt, studylvl_plt), 
+           ppc_plt, ppc_plt_g), 
          store = here::here("_targets"))
 ```
 :::
@@ -104,16 +104,16 @@ ppc_plt_g
 ### Distributions of Intercepts
 
 ```{r intercepts}
-#| fig-width: 4
-#| fig-height: 2.5
-#| fig-align: center
 #| layout-ncol: 3
+#| out-width: "100%"
 #| column: page
-
-personlvl_plt
-itemlvl_plt
-studylvl_plt
+c(tar_read(itemlvl_plt_file, store = here::here("_targets")),
+  tar_read(personlvl_plt_file, store = here::here("_targets")),
+  tar_read(studylvl_plt_file, store = here::here("_targets"))) |>
+  here::here() |>
+  knitr::include_graphics(error = F)
 ```
+
 
 ### Predictors 
 

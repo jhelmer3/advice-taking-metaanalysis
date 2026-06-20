@@ -1,5 +1,10 @@
 
 plt_woa_dist <- function(fmtted_plt_dat, pred) {
+  pred_levels <- fmtted_plt_dat |>
+    select(all_of(pred)) |>
+    unique() |>
+    nrow()
+  
   fmtted_plt_dat |>
     ggplot(aes(x = .data[[pred]], y = woa)) +
     geom_violin(alpha = .8,
@@ -19,6 +24,8 @@ plt_woa_dist <- function(fmtted_plt_dat, pred) {
                  fill = "white",
                  size = 2.5,
                  position = position_dodge(.9)) +
+    {if (pred_levels == 2) scale_x_discrete(NULL, labels = c("No", "Yes")) 
+      else scale_x_discrete()} +
     labs(x = pred |> 
            str_replace_all("_|big5", " ") |>
            str_wrap(width = 15) |>
@@ -30,6 +37,6 @@ plt_woa_dist <- function(fmtted_plt_dat, pred) {
           axis.title.x = element_text(size = 18))
 }
 
-# fmt_plt_dat(tar_read(playdat), "big5_openness") |>
-#   plt_woa_dist("big5_openness")
+# fmt_plt_dat(tar_read(predtest_dat), "age") |>
+#   plt_woa_dist("age")
 

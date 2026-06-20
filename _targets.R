@@ -4,7 +4,7 @@ library(tarchetypes)
 library(crew)
 
 tar_option_set(
-  controller = crew_controller_local(workers = 1),
+  controller = crew_controller_local(workers = 2),
   packages = c("tidyverse", "bayesplot", "cmdstanr", "patchwork", "posterior"),
   format = "qs"#,
   #storage = "worker",
@@ -60,9 +60,18 @@ list(
   tar_target(itemlvl_dat, get_itemlvl_dat(draws)),
   tar_target(studylvl_dat, get_studylvl_dat(draws)),
   
-  tar_target(itemlvl_plt, plt_intercepts(itemlvl_dat)),
-  tar_target(personlvl_plt, plt_intercepts(personlvl_dat)),
-  tar_target(studylvl_plt, plt_intercepts(studylvl_dat)),
+  tar_target(personlvl_plt_file, 
+             ggsave_and_return_path("outputs/personlvl_plt.png",
+                                    plt_intercepts(personlvl_dat), 
+                                    width = 4, height = 2.5), format = "file"),
+  tar_target(itemlvl_plt_file, 
+             ggsave_and_return_path("outputs/itemlvl_plt.png",
+                                    plt_intercepts(itemlvl_dat), 
+                                    width = 4, height = 2.5), format = "file"),
+  tar_target(studylvl_plt_file, 
+             ggsave_and_return_path("outputs/studylvl_plt.png",
+                                    plt_intercepts(studylvl_dat), 
+                                    width = 4, height = 2.5), format = "file"),
   
   ## predictor plots
   tar_target(predtest_dat, make_predtest_dat(draws, testdat)),
