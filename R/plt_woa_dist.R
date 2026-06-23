@@ -24,12 +24,13 @@ plt_woa_dist <- function(fmtted_plt_dat, pred) {
                  fill = "white",
                  size = 2.5,
                  position = position_dodge(.9)) +
-    {if (pred_levels == 2) scale_x_discrete(NULL, labels = c("No", "Yes")) 
+    {if (pred_levels == 2) scale_x_discrete(labels = c("No", "Yes")) 
       else scale_x_discrete()} +
     labs(x = pred |> 
-           str_replace_all("_|big5", " ") |>
+           replace_values("expertadvisor" ~ "expert advisor",
+                          "studentjudge" ~ "student judge") |>
            str_wrap(width = 15) |>
-           str_to_sentence(), y = "WOA") +
+           str_to_title(), y = "WOA") +
     theme_minimal(base_size = 12) +
     theme(panel.grid.minor = element_blank(),
           panel.grid.major.x = element_blank(),
