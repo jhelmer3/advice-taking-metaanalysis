@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jessica Helmer">
-<meta name="dcterms.date" content="2025-10-14">
+<meta name="dcterms.date" content="2026-06-09">
 
 <title>Advice-Taking Metaanalysis</title>
 <style>
@@ -34,14 +34,15 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -81,6 +82,8 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Advice-Taking Metaanalysis</span>
     </a>
@@ -107,10 +110,6 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./reports/trihurdle_report.html">
  <span class="dropdown-text">Tri-Hurdle Model</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./reports/trihurdle-metaanalysis_report.html">
- <span class="dropdown-text">Tri-Hurdle Metaanalysis Model</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./reports/tri-m_more-pred_report.html">
@@ -181,7 +180,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 14, 2025</p>
+      <p class="date">June 9, 2026</p>
     </div>
   </div>
   
@@ -206,7 +205,7 @@ ul.task-list li input[type="checkbox"] {
 </div><div class="column" style="width:5%;">
 
 </div><div class="column l-center-container" style="width:25%;">
-<p><a href=".\Reports/metaanalysis_report.qmd" class="btn btn-outline-primary" role="button">Metaanalysis</a></p>
+<p><a href="./Reports/metaanalysis_report.qmd" class="btn btn-outline-primary" role="button">Metaanalysis</a></p>
 </div>
 </div>
 <div class="columns v-center-container">
@@ -218,7 +217,7 @@ ul.task-list li input[type="checkbox"] {
 </div><div class="column" style="width:5%;">
 
 </div><div class="column l-center-container" style="width:25%;">
-<p><a href=".\Reports/trihurdle_report.qmd" class="btn btn-outline-primary" role="button">Tri-Hurdle</a></p>
+<p><a href="./Reports/trihurdle_report.qmd" class="btn btn-outline-primary" role="button">Tri-Hurdle</a></p>
 </div>
 </div>
 <div class="columns v-center-container">
@@ -230,7 +229,7 @@ ul.task-list li input[type="checkbox"] {
 </div><div class="column" style="width:5%;">
 
 </div><div class="column l-center-container" style="width:25%;">
-<p><a href=".\Reports/trihurdle-metaanalysis_report.qmd" class="btn btn-outline-primary" role="button">Tri-Hurdle Metaanalysis</a></p>
+<p><a href="./Reports/trihurdle-metaanalysis_report.qmd" class="btn btn-outline-primary" role="button">Tri-Hurdle Metaanalysis</a></p>
 </div>
 </div>
 
@@ -289,13 +288,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
