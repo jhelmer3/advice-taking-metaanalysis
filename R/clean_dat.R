@@ -2,7 +2,9 @@
 clean_dat <- function(full_dat) {
   full_dat |>
     # removing gender because all rows that have a value for `female` also have a value for `gender`
-    select(study, id, trial, firstestimate, advice, woa_winsor, female, age,
+    select(study, id, trial, 
+           firstestimate, advice, woa_winsor, 
+           female, age,
            student_judge, almanac, future, expert_advisor, incentive) |>
     # tossing trials where initial estimate was the same as the advice (gives WOA a denominator of zero)
     filter_out(firstestimate == advice) |>
