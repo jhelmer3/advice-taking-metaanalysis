@@ -1,0 +1,42 @@
+```{=html}
+<p>
+\[
+\begin{aligned}
+
+\text{WOA}_i &= \begin{cases} 
+    \begin{array}{l}
+    1 &\text{ with } p = \eta_{A_i} \\
+    0 &\text{ with } p = \eta_{D_i} \\
+    c &\text{ with } p = 1 - \eta_{A_i} - \eta_{D_i}
+    \end{array} 
+\end{cases} && \note{probabilities for each outcome}\\
+
+\text{logit}(\eta_{A_i}) &= \alpha_{\eta_A} + \alpha_{\eta_{A_{j[i]}}} + \alpha_{\eta_{A_{k[i]}}} && \note{logit models with random effects} \\
+\text{logit}(\eta_{D_i}) &= \alpha_{\eta_D} + \alpha_{\eta_{D_{j[i]}}} + \alpha_{\eta_{D_{k[i]}}}  \\
+
+[\alpha_{\eta_{A_{j[i]}}}, \alpha_{\eta_{A_{k[i]}}}] 
+&\sim Normal(0, \ 
+[\sigma_{\eta_{A_{j[i]}}}, \sigma_{\eta_{A_{k[i]}}}) && \note{random effect distributions for logit} \\
+
+[\alpha_{\eta_{D_{j[i]}}}, \alpha_{\eta_{D_{k[i]}}}] 
+&\sim Normal(0, \ 
+[\sigma_{\eta_{D_{j[i]}}}, \sigma_{\eta_{D_{k[i]}}}) \\
+
+c &\sim Beta(\mu_{C_i} \phi_{C_i}, (1 - \mu_{C_i}) \phi_{C_i}) && \note{continuous component for compromise} \\
+
+\mu_{C_i} &= \alpha_{\mu_C} + \alpha_{\mu_{C_{j[i]}}} + \alpha_{\mu_{C_{k[i]}}} && \note{linear model for each Beta parameter} \\
+
+\phi_{C_i} &= \alpha_{\phi_C} + \alpha_{\phi_{C_{j[i]}}} + \alpha_{\phi_{C_{k[i]}}} \\
+
+[\alpha_{\mu_{C_{j[i]}}}, \alpha_{\mu_{C_{k[i]}}}] 
+&\sim Normal(0, \
+[\sigma_{\mu_{C_{j[i]}}}, \sigma_{\mu_{C_{k[i]}}}) && \note{random effect distributions for Beta} \\
+
+[\alpha_{\phi_{C_{j[i]}}}, \alpha_{\phi_{C_{k[i]}}}] 
+&\sim Normal(0, 
+[\sigma_{\phi_{C_{j[i]}}}, \sigma_{\phi_{C_{k[i]}}}])
+
+\end{aligned}
+\]
+</p>
+```

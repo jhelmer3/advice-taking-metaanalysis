@@ -1,0 +1,13 @@
+---
+title: "Manuscript"
+author: Jess Helmer
+date: last-modified
+---
+
+# Introduction
+
+{{< include 01_introduction.qmd >}}
+
+# Methods
+
+{{< include 02_methods.qmd >}}

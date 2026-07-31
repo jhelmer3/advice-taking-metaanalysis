@@ -1,0 +1,64 @@
+```{=html}
+<p>
+\[
+\begin{aligned}
+
+\text{WOA}_i &= \begin{cases} 
+    \begin{array}{l}
+    0 &\text{ with } p = \eta_{D_i} \\
+    0.5 &\text{ with } p = \eta_{M_i} \\
+    1 &\text{ with } p = \eta_{A_i} \\
+    c &\text{ with } p = 1 - \eta_{A_i} - \eta_{D_i} - \eta_{M_i}
+    \end{array} 
+\end{cases} && \note{probabilities for each outcome} \\
+
+\text{logit}(\eta_{D_i}) &= \alpha_{\eta_D} + \boldsymbol{\beta_{\eta_D} X_i} + \alpha_{\eta_{D_{j[i]}}} + \alpha_{\eta_{D_{k[i]}}} + \alpha_{\eta_{D_{s[i]}}} \\
+\text{logit}(\eta_{M_i}) &= \alpha_{\eta_M} + \boldsymbol{\beta_{\eta_M} X_i} + \alpha_{\eta_{M_{j[i]}}} + \alpha_{\eta_{M_{k[i]}}} + \alpha_{\eta_{M_{s[i]}}} && \note{logit models with random effects} \\
+\text{logit}(\eta_{A_i}) &= \alpha_{\eta_A} + \boldsymbol{\beta_{\eta_A} X_i} + \alpha_{\eta_{A_{j[i]}}} + \alpha_{\eta_{A_{k[i]}}} + \alpha_{\eta_{A_{s[i]}}} \\
+
+[\alpha_{\eta_{D_{j[i]}}}, \alpha_{\eta_{D_{k[i]}}}, \alpha_{\eta_{D_{s[i]}}}] 
+&\sim Normal(0, \ 
+[\sigma_{\eta_{D_{j[i]}}}, \sigma_{\eta_{D_{k[i]}}}, \sigma_{\eta_{D_{s[i]}}}]) \\
+
+[\alpha_{\eta_{M_{j[i]}}}, \alpha_{\eta_{M_{k[i]}}}, \alpha_{\eta_{M_{s[i]}}}] 
+&\sim Normal(0, \ 
+[\sigma_{\eta_{M_{j[i]}}}, \sigma_{\eta_{M_{k[i]}}}, \sigma_{\eta_{M_{s[i]}}}]) && \note{random effect distributions for logit} \\
+
+[\alpha_{\eta_{A_{j[i]}}}, \alpha_{\eta_{A_{k[i]}}}, \alpha_{\eta_{A_{s[i]}}}] 
+&\sim Normal(0, \ 
+[\sigma_{\eta_{A_{j[i]}}}, \sigma_{\eta_{A_{k[i]}}}, \sigma_{\eta_{A_{s[i]}}}]) \\
+
+
+c &\sim Beta(\mu_{C_i} \phi_{C_i}, (1 - \mu_{C_i}) \phi_{C_i}) && \note{continuous component for compromise}  \\
+
+\mu_{C_i} &= \alpha_{\mu_C} + \boldsymbol{\beta_{\mu_C} X_i} + \alpha_{\mu_{C_{j[i]}}} + \alpha_{\mu_{C_{k[i]}}} + \alpha_{\mu_{C_{s[i]}}} && \note{linear model for each Beta parameter} \\
+
+\phi_{C_i} &= \alpha_{\phi_C} + \boldsymbol{\beta_{\phi_C} X_i} + \alpha_{\phi_{C_{j[i]}}} + \alpha_{\phi_{C_{k[i]}}} + \alpha_{\phi_{C_{s[i]}}} \\
+
+[\alpha_{\mu_{C_{j[i]}}}, \alpha_{\mu_{C_{k[i]}}}, \alpha_{\mu_{C_{s[i]}}}] 
+&\sim Normal(0, \
+[\sigma_{\mu_{C_{j[i]}}}, \sigma_{\mu_{C_{k[i]}}}, \sigma_{\mu_{C_{s[i]}}}]) && \note{random effect distributions for Beta} \\ 
+
+[\alpha_{\phi_{C_{j[i]}}}, \alpha_{\phi_{C_{k[i]}}}, \alpha_{\phi_{C_{s[i]}}}] 
+&\sim Normal(0, 
+[\sigma_{\phi_{C_{j[i]}}}, \sigma_{\phi_{C_{k[i]}}}, \sigma_{\phi_{C_{s[i]}}}]) \\ \\
+
+\alpha_{\eta_D}, \alpha_{\eta_M}, \alpha_{\eta_A} &\sim Normal(0, 5) && \note{priors on population means} \\
+
+\boldsymbol{\beta_{\eta_D}}, \boldsymbol{\beta_{\eta_M}}, \boldsymbol{\beta_{\eta_A}} &\sim Normal(0, \mathbf{b}) \\
+
+[\sigma_{\eta_{D_{j[i]}}}, \sigma_{\eta_{D_{k[i]}}}, \sigma_{\eta_{D_{s[i]}}}] &\sim Student\text{-}t(3, 0, 2.5) \\
+[\sigma_{\eta_{M_{j[i]}}}, \sigma_{\eta_{M_{k[i]}}}, \sigma_{\eta_{M_{s[i]}}}] &\sim Student\text{-}t(3, 0, 2.5) && \note{priors on variances of cluster effects}\\
+[\sigma_{\eta_{A_{j[i]}}}, \sigma_{\eta_{A_{k[i]}}}, \sigma_{\eta_{A_{s[i]}}}] &\sim Student\text{-}t(3, 0, 2.5) \\
+
+\alpha_{\mu_C}, \alpha_{\phi_C} &\sim Normal(0, 5) && \note{priors on population means} \\
+
+\boldsymbol{\beta_{\mu_C}}, \boldsymbol{\beta_{\phi_C}} &\sim Normal(0, \mathbf{b}) \\
+
+[\sigma_{\mu_{C_{j[i]}}}, \sigma_{\mu_{C_{k[i]}}}, \sigma_{\mu_{C_{s[i]}}}] &\sim Student\text{-}t(3, 0, 2.5) && \note{priors on variances of cluster effects} \\
+[\sigma_{\phi_{C_{j[i]}}}, \sigma_{\phi_{C_{k[i]}}}, \sigma_{\phi_{C_{s[i]}}}] &\sim Student\text{-}t(3, 0, 2.5) \\
+
+\end{aligned}
+\]
+</p>
+```

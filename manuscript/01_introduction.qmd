@@ -1,0 +1,13 @@
+---
+title: "Introduction"
+author: Jess Helmer
+date: last-modified
+---
+
+## Overview
+
+## Literature
+
+### Dual-Hurdle Model
+
+{{< include ../models/notation/dual-hurdle_centered.qmd >}}
